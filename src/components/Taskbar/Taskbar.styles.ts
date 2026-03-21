@@ -18,7 +18,7 @@ export const TaskbarWrapper = styled.div`
 
 export const StartButton = styled.button`
   height: 22px;
-  padding: 0 8px;
+  padding: 0 6px;
   background: #c0c0c0;
   border: 2px solid;
   border-color: #ffffff #404040 #404040 #ffffff;
