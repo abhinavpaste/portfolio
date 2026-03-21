@@ -1,4 +1,5 @@
 import { useState, useEffect, useRef } from 'react'
+import useSound from '../../hooks/useSound'
 import windows from '../../assets/windows.png'
 import StartMenu from '../StartMenu/StartMenu'
 import {
@@ -9,6 +10,7 @@ import {
 } from './Taskbar.styles'
 
 const Taskbar = () => {
+  const playSound = useSound()
   const [time, setTime] = useState('')
   const [isOpen, setIsOpen] = useState(false)
   const menuRef = useRef<HTMLDivElement>(null)
@@ -42,7 +44,7 @@ const Taskbar = () => {
       {isOpen && <StartMenu />}
 
       <TaskbarWrapper>
-        <StartButton onClick={() => setIsOpen(prev => !prev)}>
+        <StartButton onClick={() => {   playSound() , setIsOpen(prev => !prev)}}>
           <img src={windows} alt="Windows" style={{ width: '18px', height: '18px' }} />
           <span>Start</span>
         </StartButton>

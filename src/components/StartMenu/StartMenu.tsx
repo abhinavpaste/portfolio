@@ -30,6 +30,10 @@ const StartMenu = () => {
         ))}
 
         <Separator />
+        <MenuItem>
+          
+          <span>  Restart</span>
+        </MenuItem>
 
         <MenuItem>
           <span>🔴</span>

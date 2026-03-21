@@ -2,7 +2,7 @@ import styled from 'styled-components'
 
 export const MenuWrapper = styled.div`
   position: fixed;
-  bottom: 28px;
+  bottom: 32px;
   left: 0;
   width: 200px;
   background: #c0c0c0;
@@ -15,7 +15,7 @@ export const MenuWrapper = styled.div`
 
 export const SideBanner = styled.div`
   width: 26px;
-  background: #000080;
+  background: linear-gradient(to right, #000080, #3399ff);
   display: flex;
   align-items: flex-end;
   justify-content: center;
