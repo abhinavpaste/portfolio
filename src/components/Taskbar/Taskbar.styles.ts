@@ -13,7 +13,7 @@ export const TaskbarWrapper = styled.div`
   padding: 2px 4px;
   gap: 4px;
   z-index: 1000;
-  user-select: none;
+  user-select: none;                                          
 `
 
 export const StartButton = styled.button`
@@ -27,7 +27,7 @@ export const StartButton = styled.button`
   gap: 4px;
   cursor: pointer;
   font-weight: bold;
-  font-size: 11px;
+  font-size: 12px;
   font-family: 'Tahoma', Arial, sans-serif;
 
   &:active {

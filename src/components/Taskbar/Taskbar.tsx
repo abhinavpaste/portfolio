@@ -1,4 +1,5 @@
 import { useState, useEffect } from 'react'
+import windows from '../../assets/windows.png'
 import {
   TaskbarWrapper,
   StartButton,
@@ -25,10 +26,10 @@ const Taskbar = () => {
 
   return (
     <TaskbarWrapper>
-      <StartButton>
-        <span>🪟</span>
-        <span>Start</span>
-      </StartButton>
+     <StartButton>
+      <img src={windows} alt="Windows" style={{ width: '23px', height: '28 px' }} />
+      <span>Start</span>
+    </StartButton>
 
       <Divider />
 
