@@ -1,6 +1,4 @@
 import { useState, useEffect, useRef } from 'react'
-import useSound from '../../hooks/useSound'
-import windows from '../../assets/windows.png'
 import StartMenu from '../StartMenu/StartMenu'
 import {
   TaskbarWrapper,
@@ -8,12 +6,17 @@ import {
   Divider,
   Tray,
 } from './Taskbar.styles'
+import { TaskbarButton } from './Taskbar.styles'
+import windows from '../../assets/windows.png'
+import useSound from '../../hooks/useSound'
+import { useWindowStore } from '../../store/windowStore'
 
 const Taskbar = () => {
-  const playSound = useSound()
-  const [time, setTime] = useState('')
   const [isOpen, setIsOpen] = useState(false)
+  const [time, setTime] = useState('')
   const menuRef = useRef<HTMLDivElement>(null)
+  const playSound = useSound(0.3)
+  const { windows: openWindows, toggleWindow } = useWindowStore()
 
   useEffect(() => {
     const updateClock = () => {
@@ -42,14 +45,23 @@ const Taskbar = () => {
   return (
     <div ref={menuRef}>
       {isOpen && <StartMenu />}
-
       <TaskbarWrapper>
-        <StartButton onClick={() => {   playSound() , setIsOpen(prev => !prev)}}>
+        <StartButton onClick={() => { playSound(); setIsOpen(prev => !prev) }}>
           <img src={windows} alt="Windows" style={{ width: '18px', height: '18px' }} />
           <span>Start</span>
         </StartButton>
 
         <Divider />
+
+        {/* Taskbar window buttons */}
+        {openWindows.filter(w => w.isOpen).map(w => (
+          <TaskbarButton
+            key={w.id}
+            onClick={() => { playSound(); toggleWindow(w.id) }}
+          >
+            {w.title}
+          </TaskbarButton>
+        ))}
 
         <Tray>
           <svg width="14" height="14" viewBox="0 0 14 14">

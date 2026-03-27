@@ -15,8 +15,10 @@ interface Props {
   title: string
   icon?: string
   width?: number
+  isMinimized?: boolean
   defaultPosition?: { x: number; y: number }
   onClose?: () => void
+  onMinimize?: () => void
   children: React.ReactNode
 }
 
@@ -24,8 +26,10 @@ const Window = ({
   title,
   icon,
   width = 600,
+  isMinimized = false,
   defaultPosition,
   onClose,
+  onMinimize,
   children,
 }: Props) => {
   const playSound = useSound(0.3)
@@ -55,11 +59,7 @@ const Window = ({
         y: e.clientY - dragOffset.current.y,
       })
     }
-
-    const handleMouseUp = () => {
-      isDragging.current = false
-    }
-
+    const handleMouseUp = () => { isDragging.current = false }
     document.addEventListener('mousemove', handleMouseMove)
     document.addEventListener('mouseup', handleMouseUp)
     return () => {
@@ -67,6 +67,8 @@ const Window = ({
       document.removeEventListener('mouseup', handleMouseUp)
     }
   }, [])
+
+  if (isMinimized) return null
 
   return (
     <WindowWrapper x={position.x} y={position.y} width={width}>
@@ -76,7 +78,7 @@ const Window = ({
           <span>{title}</span>
         </TitleLeft>
         <TitleControls>
-          <TitleButton onClick={() => playSound()}>_</TitleButton>
+          <TitleButton onClick={() => { playSound(); onMinimize?.() }}>_</TitleButton>
           <TitleButton onClick={() => playSound()}>□</TitleButton>
           <TitleButton onClick={() => { playSound(); onClose?.() }}>✕</TitleButton>
         </TitleControls>

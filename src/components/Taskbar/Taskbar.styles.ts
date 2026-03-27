@@ -15,7 +15,24 @@ export const TaskbarWrapper = styled.div`
   z-index: 1000;
   user-select: none;                                          
 `
+export const TaskbarButton = styled.button`
+  height: 22px;
+  padding: 0 8px;
+  background: #c0c0c0;
+  border: 1px solid;
+  border-color: #808080 #ffffff #ffffff #808080;
+  font-size: 11px;
+  font-family: 'Tahoma', Arial, sans-serif;
+  cursor: pointer;
+  max-width: 150px;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
 
+  &:active {
+    border-color: #ffffff #808080 #808080 #ffffff;
+  }
+`
 export const StartButton = styled.button`
   height: 22px;
   padding: 0 6px;

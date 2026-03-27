@@ -3,24 +3,22 @@ import { DesktopWrapper, VideoBackground } from './Desktop.styles'
 import DesktopIcon from './DesktopIcon'
 import { desktopIcons, type DesktopIconConfig } from '../../config/desktopIcons.config'
 
-const Desktop = () => {
+interface Props {
+  onPortfolioOpen: () => void
+}
+
+const Desktop = ({ onPortfolioOpen }: Props) => {
   const handleIconDoubleClick = (icon: DesktopIconConfig) => {
     if (icon.action === 'link') {
       window.open(icon.target, '_blank')
-    } else {
-      // we'll hook this up to the window manager later
-      console.log('open window:', icon.target)
+    } else if (icon.action === 'window' && icon.target === 'portfolio') {
+      onPortfolioOpen()
     }
   }
 
   return (
     <DesktopWrapper>
-      <VideoBackground
-        src={wallpaper}
-        autoPlay
-        loop
-        muted
-      />
+      <VideoBackground src={wallpaper} autoPlay loop muted />
       {desktopIcons.map((icon) => (
         <DesktopIcon
           key={icon.id}

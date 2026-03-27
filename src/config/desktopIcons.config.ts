@@ -38,4 +38,12 @@ export const desktopIcons: DesktopIconConfig[] = [
     target: 'https://your-resume-link.com',
     position: { x: 20, y: 200 },
   },
+  {
+  id: 'portfolio',
+  label: 'My Portfolio',
+  icon: resumeIcon,   // add a PNG to assets and import it
+  action: 'window',
+  target: 'portfolio',
+  position: { x: 20, y: 20 },
+}
 ]
