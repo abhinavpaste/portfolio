@@ -39,11 +39,11 @@ export const desktopIcons: DesktopIconConfig[] = [
     position: { x: 20, y: 200 },
   },
   {
-  id: 'portfolio',
-  label: 'My Portfolio',
-  icon: resumeIcon,   // add a PNG to assets and import it
-  action: 'window',
-  target: 'portfolio',
-  position: { x: 20, y: 20 },
-}
+    id: 'portfolio',
+    label: 'My Portfolio',
+    icon: resumeIcon,   // add a PNG to assets and import it
+    action: 'window',
+    target: 'portfolio',
+    position: { x: 100, y: 300 },
+  }
 ]

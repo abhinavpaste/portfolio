@@ -24,6 +24,24 @@ const initialWindows: WindowState[] = [
     isOpen: true,
     isMinimized: false,
   },
+  {
+    id: 'details-navsh',
+    title: 'navsh — Project Details',
+    isOpen: false,
+    isMinimized: false,
+  },
+  {
+    id: 'details-georisk',
+    title: 'Go Job Queue — Project Details',
+    isOpen: false,
+    isMinimized: false,
+  },
+  {
+    id: 'details-portfolio',
+    title: 'Win98 Portfolio — Project Details',
+    isOpen: false,
+    isMinimized: false,
+  },
 ]
 
 export const WindowProvider = ({ children }: { children: React.ReactNode }) => {
