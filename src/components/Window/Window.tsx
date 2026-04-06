@@ -19,6 +19,8 @@ interface Props {
   defaultPosition?: { x: number; y: number }
   onClose?: () => void
   onMinimize?: () => void
+  toolbar?: React.ReactNode
+  statusBar?: React.ReactNode
   children: React.ReactNode
 }
 
@@ -30,6 +32,8 @@ const Window = ({
   defaultPosition,
   onClose,
   onMinimize,
+  toolbar,
+  statusBar,
   children,
 }: Props) => {
   const playSound = useSound(0.3)
@@ -91,9 +95,36 @@ const Window = ({
         <MenuBarItem>Help</MenuBarItem>
       </MenuBar>
 
+      {toolbar && (
+        <div style={{
+          background: '#c0c0c0',
+          borderBottom: '1px solid #808080',
+          padding: '2px 4px',
+          display: 'flex',
+          alignItems: 'center',
+          gap: '4px',
+        }}>
+          {toolbar}
+        </div>
+      )}
+
       <WindowBody>
         {children}
       </WindowBody>
+
+      {statusBar && (
+        <div style={{
+          background: '#c0c0c0',
+          borderTop: '1px solid #808080',
+          padding: '2px 8px',
+          display: 'flex',
+          gap: '8px',
+          fontSize: '11px',
+          fontFamily: 'Tahoma, Arial, sans-serif',
+        }}>
+          {statusBar}
+        </div>
+      )}
     </WindowWrapper>
   )
 }

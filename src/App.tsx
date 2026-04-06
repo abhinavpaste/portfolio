@@ -1,13 +1,44 @@
+import { useRef } from 'react'
 import Desktop from './components/Desktop/Desktop'
 import Taskbar from './components/Taskbar/Taskbar'
 import Window from './components/Window/Window'
-import MainWindow from './components/MainWindow/MainWindow'
+import MainWindow, { type MainWindowRef } from './components/MainWindow/MainWindow'
 import { WindowProvider, useWindowStore } from './store/windowStore'
+import { ToolbarButton, ToolbarSep, AddressBar, AddressInput, StatusPanel } from './components/Window/Window.styles'
+import { projects } from './config/projects.config'
+import useSound from './hooks/useSound'
 
 const AppContent = () => {
   const { windows, closeWindow, minimizeWindow, openWindow } = useWindowStore()
   const portfolio = windows.find(w => w.id === 'portfolio')
   const detailWindows = windows.filter(w => w.id.startsWith('details-'))
+  const playSound = useSound(0.3)
+  const mainWindowRef = useRef<MainWindowRef>(null)
+
+  const portfolioToolbar = (
+    <>
+      <ToolbarButton onClick={() => { playSound(); mainWindowRef.current?.goBack() }}>
+        ← Back
+      </ToolbarButton>
+      <ToolbarButton onClick={() => { playSound(); mainWindowRef.current?.goForward() }}>
+        → Forward
+      </ToolbarButton>
+      <ToolbarSep />
+      <ToolbarButton onClick={() => playSound()}>↑ Up</ToolbarButton>
+      <ToolbarSep />
+      <AddressBar>
+        <span>Address:</span>
+        <AddressInput>C:\Users\Abhinav\Portfolio</AddressInput>
+      </AddressBar>
+    </>
+  )
+
+  const portfolioStatusBar = (
+    <>
+      <StatusPanel>{projects.length} object(s)</StatusPanel>
+      <StatusPanel>Last modified: 2026</StatusPanel>
+    </>
+  )
 
   return (
     <div style={{ width: '100vw', height: '100vh', overflow: 'hidden' }}>
@@ -15,13 +46,15 @@ const AppContent = () => {
 
       {portfolio?.isOpen && (
         <Window
-          title={portfolio.title}
+          title="Projects — File Explorer"
           width={800}
           isMinimized={portfolio.isMinimized}
           onClose={() => closeWindow('portfolio')}
           onMinimize={() => minimizeWindow('portfolio')}
+          toolbar={portfolioToolbar}
+          statusBar={portfolioStatusBar}
         >
-          <MainWindow />
+          <MainWindow ref={mainWindowRef} />
         </Window>
       )}
 
@@ -34,11 +67,7 @@ const AppContent = () => {
           onClose={() => closeWindow(w.id)}
           onMinimize={() => minimizeWindow(w.id)}
         >
-          <div style={{
-            padding: '12px',
-            fontFamily: 'Tahoma, Arial, sans-serif',
-            fontSize: '11px',
-          }}>
+          <div style={{ padding: '12px', fontFamily: 'Tahoma, Arial, sans-serif', fontSize: '11px' }}>
             Detailed view coming soon...
           </div>
         </Window>

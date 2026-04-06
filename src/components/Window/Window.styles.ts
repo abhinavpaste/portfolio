@@ -91,3 +91,53 @@ export const MenuBarItem = styled.div`
     color: #ffffff;
   }
 `
+
+export const ToolbarButton = styled.button`
+  height: 22px;
+  padding: 0 8px;
+  background: #c0c0c0;
+  border: 2px solid;
+  border-color: #ffffff #808080 #808080 #ffffff;
+  font-size: 11px;
+  font-family: 'Tahoma', Arial, sans-serif;
+  cursor: pointer;
+
+  &:active {
+    border-color: #808080 #ffffff #ffffff #808080;
+  }
+`
+
+export const ToolbarSep = styled.div`
+  width: 2px;
+  height: 18px;
+  border-left: 1px solid #808080;
+  border-right: 1px solid #ffffff;
+  margin: 0 2px;
+`
+
+export const AddressBar = styled.div`
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  flex: 1;
+  font-size: 11px;
+  font-family: 'Tahoma', Arial, sans-serif;
+`
+
+export const AddressInput = styled.div`
+  flex: 1;
+  border: 2px solid;
+  border-color: #808080 #ffffff #ffffff #808080;
+  background: white;
+  padding: 1px 4px;
+  font-size: 11px;
+  font-family: 'Tahoma', Arial, sans-serif;
+`
+
+export const StatusPanel = styled.div`
+  border: 1px solid;
+  border-color: #808080 #ffffff #ffffff #808080;
+  padding: 0 6px;
+  font-size: 11px;
+  font-family: 'Tahoma', Arial, sans-serif;
+`
