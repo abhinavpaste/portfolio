@@ -22,10 +22,18 @@ export const projects: Project[] = [
     githubUrl: 'https://github.com/abhinavpaste/navsh',
   },
   {
+    id: 'crev',
+    title: 'crev — Lightweight Code Review Tool',
+    shortDesc: 'Built a lightweight code review tool in Go using net/http, PostgreSQL, JWT auth and bcrypt. Implements a full REST API for snippet submission and inline commenting. Designed to replace heavier tools for small teams.',
+    techStack: ['Go', 'PostgreSQL', 'REST API', 'JWT'],
+    githubUrl: 'https://github.com/abhinavpaste/crev',
+  },
+  {
     id: 'portfolio',
-    title: 'Win98 Portfolio',
+    title: 'Current Portfolio',
     shortDesc: 'This portfolio website — built with React, TypeScript, Vite and Styled Components. Designed to look and feel like Windows 98, complete with draggable windows, a taskbar, start menu, desktop icons, video wallpaper and click sound effects.',
     techStack: ['React', 'TypeScript', 'Vite', 'Styled Components'],
     githubUrl: 'https://github.com/abhinavpaste/portfolio',
   },
+  
 ]

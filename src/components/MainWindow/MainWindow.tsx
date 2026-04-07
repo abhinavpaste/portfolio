@@ -19,7 +19,7 @@ const MainWindow = forwardRef<MainWindowRef>((_, ref) => {
   const [activeTab, setActiveTab] = useState('About')
   const [history, setHistory] = useState<string[]>(['About'])
   const [historyIndex, setHistoryIndex] = useState(0)
-  const playSound = useSound(0.3)
+  const playSound = useSound(0.5)
   const { openWindow } = useWindowStore()
 
   const navigateTo = (tab: string) => {
@@ -31,18 +31,16 @@ const MainWindow = forwardRef<MainWindowRef>((_, ref) => {
   }
 
   const goBack = () => {
-    if (historyIndex <= 0) return
-    const newIndex = historyIndex - 1
-    setHistoryIndex(newIndex)
-    setActiveTab(history[newIndex])
+    const currentIndex = tabs.indexOf(activeTab)
+    const newIndex = currentIndex <= 0 ? tabs.length - 1 : currentIndex - 1
+    setActiveTab(tabs[newIndex])
     playSound()
   }
 
   const goForward = () => {
-    if (historyIndex >= history.length - 1) return
-    const newIndex = historyIndex + 1
-    setHistoryIndex(newIndex)
-    setActiveTab(history[newIndex])
+    const currentIndex = tabs.indexOf(activeTab)
+    const newIndex = currentIndex >= tabs.length - 1 ? 0 : currentIndex + 1
+    setActiveTab(tabs[newIndex])
     playSound()
   }
 

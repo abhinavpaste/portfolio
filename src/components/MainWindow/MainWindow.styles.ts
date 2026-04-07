@@ -25,7 +25,7 @@ export const ProjectItem = styled.div`
   display: flex;
   gap: 10px;
   align-items: flex-start;
-  padding: 8px;
+  padding: 6px;
   background: #ffffff;
   color: #000000;
   border: 1px solid #808080;
@@ -55,7 +55,7 @@ export const TabContent = styled.div`
   flex: 1;
   overflow-y: auto;
   background: #c0c0c0;
-  padding: 12px;
+  padding: 9px;
   margin: 0 4px 4px 4px;
   border: 2px solid;
   border-color: #808080 #ffffff #ffffff #808080;

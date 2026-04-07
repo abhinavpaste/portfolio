@@ -10,12 +10,15 @@ const ProjectsTab = ({ onOpenDetails }: Props) => {
   const playSound = useSound(0.3)
 
   return (
-    <div style={{ display: 'flex', flexDirection: 'column', gap: '2px' }}>
+    <div style={{ display: 'flex', flexDirection: 'column', gap: '6px' }}>
       {projects.map((project) => (
         <ProjectItem key={project.id}>
 
           <ProjIcon>
-            {project.id === 'navsh' ? '🖥️' : project.id === 'georisk' ? '⊕' : '🪟'}
+                    {project.id === 'navsh' ? '🖥️' 
+            : project.id === 'georisk' ? '⊕' 
+            : project.id === 'crev' ? '🔍'
+            : '🪟'}
           </ProjIcon>
 
           <div style={{ flex: 1, display: 'flex', flexDirection: 'column', gap: '4px' }}>
