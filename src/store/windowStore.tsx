@@ -25,6 +25,12 @@ const initialWindows: WindowState[] = [
     isMinimized: false,
   },
   {
+    id: 'clock',
+    title: 'Clock',
+    isOpen: true,
+    isMinimized: false,
+  },
+  {
     id: 'details-navsh',
     title: 'navsh — Project Details',
     isOpen: false,

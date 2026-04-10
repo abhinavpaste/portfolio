@@ -15,7 +15,9 @@ interface Props {
   title: string
   icon?: string
   width?: number
+  height?: string
   isMinimized?: boolean
+  showMenu?: boolean
   defaultPosition?: { x: number; y: number }
   onClose?: () => void
   onMinimize?: () => void
@@ -28,7 +30,9 @@ const Window = ({
   title,
   icon,
   width = 600,
+  height = '600px',
   isMinimized = false,
+  showMenu = true,
   defaultPosition,
   onClose,
   onMinimize,
@@ -75,7 +79,7 @@ const Window = ({
   if (isMinimized) return null
 
   return (
-    <WindowWrapper x={position.x} y={position.y} width={width}>
+    <WindowWrapper x={position.x} y={position.y} width={width} height={height}>
       <TitleBar isActive={isActive} onMouseDown={handleMouseDown}>
         <TitleLeft>
           {icon && <img src={icon} alt="" style={{ width: '14px', height: '14px' }} />}
@@ -88,12 +92,14 @@ const Window = ({
         </TitleControls>
       </TitleBar>
 
-      <MenuBar>
-        <MenuBarItem>File</MenuBarItem>
-        <MenuBarItem>Edit</MenuBarItem>
-        <MenuBarItem>View</MenuBarItem>
-        <MenuBarItem>Help</MenuBarItem>
-      </MenuBar>
+      {showMenu && (
+        <MenuBar>
+          <MenuBarItem>File</MenuBarItem>
+          <MenuBarItem>Edit</MenuBarItem>
+          <MenuBarItem>View</MenuBarItem>
+          <MenuBarItem>Help</MenuBarItem>
+        </MenuBar>
+      )}
 
       {toolbar && (
         <div style={{

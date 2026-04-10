@@ -1,10 +1,11 @@
 import styled from 'styled-components'
 
-export const WindowWrapper = styled.div<{ x: number; y: number; width: number }>`
+export const WindowWrapper = styled.div<{ x: number; y: number; width: number; height?: string }>`
   position: fixed;
   left: ${({ x }) => x}px;
   top: ${({ y }) => y}px;
   width: ${({ width }) => width}px;
+  height: ${({ height }) => height ?? '600px'};
   background: #c0c0c0;
   border: 2px solid;
   border-color: #ffffff #404040 #404040 #ffffff;
@@ -91,6 +92,8 @@ export const MenuBarItem = styled.div`
     color: #ffffff;
   }
 `
+
+
 
 export const ToolbarButton = styled.button`
   height: 22px;

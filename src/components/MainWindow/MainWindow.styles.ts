@@ -25,10 +25,11 @@ export const ProjectItem = styled.div`
   display: flex;
   gap: 10px;
   align-items: flex-start;
-  padding: 6px;
+  padding: 8px;
   background: #ffffff;
   color: #000000;
-  border: 1px solid #808080;
+  border: 2px solid;
+  border-color: #808080 #ffffff #ffffff #808080;
   cursor: default;
 
   &:hover {

@@ -7,6 +7,7 @@ import { WindowProvider, useWindowStore } from './store/windowStore'
 import { ToolbarButton, ToolbarSep, AddressBar, AddressInput, StatusPanel } from './components/Window/Window.styles'
 import { projects } from './config/projects.config'
 import useSound from './hooks/useSound'
+import ClockWindow from './components/Clockwindow/clockwindow'
 
 const AppContent = () => {
   const { windows, closeWindow, minimizeWindow, openWindow } = useWindowStore()
@@ -17,10 +18,10 @@ const AppContent = () => {
 
   const portfolioToolbar = (
     <>
-      <ToolbarButton onClick={() => { playSound(); mainWindowRef.current?.goBack() }}>
+      <ToolbarButton onClick={() => mainWindowRef.current?.goBack()}>
         ← Back
       </ToolbarButton>
-      <ToolbarButton onClick={() => { playSound(); mainWindowRef.current?.goForward() }}>
+      <ToolbarButton onClick={() => mainWindowRef.current?.goForward()}>
         → Forward
       </ToolbarButton>
       <ToolbarSep />
@@ -44,10 +45,13 @@ const AppContent = () => {
     <div style={{ width: '100vw', height: '100vh', overflow: 'hidden' }}>
       <Desktop onPortfolioOpen={() => openWindow('portfolio')} />
 
+      <ClockWindow />
+
       {portfolio?.isOpen && (
         <Window
           title="Projects — File Explorer"
-          width={800}
+          width={750}
+          height="500px"
           isMinimized={portfolio.isMinimized}
           onClose={() => closeWindow('portfolio')}
           onMinimize={() => minimizeWindow('portfolio')}
@@ -62,7 +66,7 @@ const AppContent = () => {
         <Window
           key={w.id}
           title={w.title}
-          width={600}
+          width={400}
           isMinimized={w.isMinimized}
           onClose={() => closeWindow(w.id)}
           onMinimize={() => minimizeWindow(w.id)}
