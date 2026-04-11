@@ -5,7 +5,18 @@ export const TabBar = styled.div`
   padding: 4px 0 0 4px;
   background: #c0c0c0;
 `
-
+export const TitleBar = styled.div<{ isActive: boolean }>`
+  background: ${({ isActive }) => isActive 
+    ? 'linear-gradient(to right, #000080, #1084d0)' 
+    : 'linear-gradient(to right, #808080, #b0b0b0)'};
+  padding: 2px 4px;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  height: 22px;
+  cursor: grab;
+  flex-shrink: 0;
+`
 export const Tab = styled.div<{ isActive: boolean }>`
   padding: 3px 16px;
   font-size: 11px;

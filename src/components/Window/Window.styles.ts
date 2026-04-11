@@ -15,9 +15,10 @@ export const WindowWrapper = styled.div<{ x: number; y: number; width: number; h
   z-index: 100;
   user-select: none;
 `
-
 export const TitleBar = styled.div<{ isActive: boolean }>`
-  background: ${({ isActive }) => isActive ? '#000080' : '#808080'};
+  background: ${({ isActive }) => isActive 
+    ? 'linear-gradient(to right, #000080, #1084d0)' 
+    : 'linear-gradient(to right, #808080, #b0b0b0)'};
   padding: 2px 4px;
   display: flex;
   align-items: center;

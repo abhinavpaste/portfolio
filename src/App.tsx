@@ -49,7 +49,7 @@ const AppContent = () => {
 
       {portfolio?.isOpen && (
         <Window
-          title="Projects — File Explorer"
+          title="Portfolio.exe"
           width={750}
           height="500px"
           isMinimized={portfolio.isMinimized}

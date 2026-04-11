@@ -34,7 +34,7 @@ const AboutTab = () => {
             color: '#404040',
             fontFamily: 'Tahoma, Arial, sans-serif',
           }}>
-            Fullstack Developer and Systems Enthusiast
+            Backend Developer and Systems Enthusiast
           </div>
           <div style={{
             fontSize: '15px',
@@ -84,7 +84,7 @@ const AboutTab = () => {
 
       {/* Bio */}
       <div style={{
-        fontSize: '15px',
+        fontSize: '14px',
         fontFamily: 'Tahoma, Arial, sans-serif',
         lineHeight: '1.6',
         border: '2px solid',
@@ -92,10 +92,7 @@ const AboutTab = () => {
         background: '#ffffff',
         padding: '8px',
       }}>
-        Pre-final year CSE student with a passion for low-level systems programming
-        and infrastructure. Builder of navsh — a modular POSIX-compliant Unix shell in C.
-        Active competitive programmer with 400+ problems solved on LeetCode.
-        Targeting SRE and kernel engineering roles at companies like Nutanix, Red Hat, and Canonical.
+        I am a pre-final year CSE undergraduate and a backend developer with a strong interest in systems programming. I enjoy understanding systems from first principles and building solutions from the ground up, with a focus on strong logical foundations. I primarily work with Golang and Node.js for backend development, and C/C++ for system-level programming. I am actively seeking internship opportunities and open to work.
       </div>
 
     </div>
