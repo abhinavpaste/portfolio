@@ -3,7 +3,10 @@ import projectsIcon from '../assets/projects.png'
 import twitterIcon from '../assets/twitter.png'
 import leetcodeIcon from '../assets/leetcode-icon.png'
 import gh from '../assets/gh.png'
+import linksIcon from '../assets/links.png'
 import linkedinIcon from '../assets/linkedin.png'
+import pfIcon from '../assets/pf.png'
+import timedateIcon from '../assets/timedate.png'
 
 
 export type IconAction = 'window' | 'link'
@@ -24,7 +27,7 @@ export const desktopIcons: DesktopIconConfig[] = [
     icon: reseIcon,
     action: 'link',
     target: '/resume.pdf',
-    position: { x: 20, y: 20 },
+    position: { x: 180, y: 180 },
   },
   {
     id: 'projects',
@@ -32,7 +35,7 @@ export const desktopIcons: DesktopIconConfig[] = [
     icon: projectsIcon,
     action: 'window',
     target: 'portfolio',
-    position: { x: 20, y: 110 },
+    position: { x: 260, y: 180 },
   },
   {
     id: 'github',
@@ -40,7 +43,7 @@ export const desktopIcons: DesktopIconConfig[] = [
     icon: gh,
     action: 'link',
     target: 'https://github.com/abhinavpaste',
-    position: { x: 20, y: 200 },
+    position: { x: 20, y: 30 },
   },
   {
     id: 'leetcode',
@@ -48,7 +51,7 @@ export const desktopIcons: DesktopIconConfig[] = [
     icon: leetcodeIcon,
     action: 'link',
     target: 'https://leetcode.com/u/ElmIQosKNk/',
-    position: { x: 20, y: 290 },
+    position: { x: 20, y: 470 },
   },
   {
     id: 'twitter',
@@ -56,15 +59,40 @@ export const desktopIcons: DesktopIconConfig[] = [
     icon: twitterIcon,
     action: 'link',
     target: 'https://twitter.com/thunderavalt',
-    position: { x: 20, y: 380 },
+    position: { x: 20, y: 180 },
     
   },
+  {
+  id: 'links',
+  label: 'links.exe',
+  icon: linksIcon,
+  action: 'window',
+  target: 'links',
+  position: { x: 260, y: 260 },
+},
   {
     id: 'linkedin',
     label: 'LinkedIn',
     icon: linkedinIcon,
     action: 'link',
     target: 'https://linkedin.com/in/abhinav-paste',
-    position: { x: 20, y: 470 },
+    position: { x: 20, y: 105 },
   },
+  {
+  id: 'portfolio-icon',
+  label: 'Portfolio.exe',
+  icon: pfIcon,
+  action: 'window',
+  target: 'portfolio',
+  position: { x: 180, y: 260 },
+},
+{
+  id: 'timedate-icon',
+  label: 'timedate.exe',
+  icon: timedateIcon,
+  action: 'window',
+  target: 'clock',
+  position: { x: 180, y: 465 },
+},
+  
 ]

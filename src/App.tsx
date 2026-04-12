@@ -9,6 +9,8 @@ import { projects } from './config/projects.config'
 import useSound from './hooks/useSound'
 import ClockWindow from './components/Clockwindow/clockwindow'
 import LinksWindow from './components/LinksWindow/LinksWindow'
+import { useState } from 'react'
+import Boot from './components/Boot/Boot'
 
 const AppContent = () => {
   const { windows, closeWindow, minimizeWindow, openWindow } = useWindowStore()
@@ -16,6 +18,9 @@ const AppContent = () => {
   const detailWindows = windows.filter(w => w.id.startsWith('details-'))
   const playSound = useSound(0.3)
   const mainWindowRef = useRef<MainWindowRef>(null)
+    const [booting, setBooting] = useState(true)
+
+  if (booting) return <Boot onComplete={() => setBooting(false)} />
 
   const handlePortfolioOpen = (tab?: string) => {
     openWindow('portfolio')
@@ -51,7 +56,11 @@ const AppContent = () => {
 
   return (
     <div style={{ width: '100vw', height: '100vh', overflow: 'hidden' }}>
-      <Desktop onPortfolioOpen={handlePortfolioOpen} />
+  <Desktop 
+  onPortfolioOpen={handlePortfolioOpen}
+  onLinksOpen={() => openWindow('links')}
+  onClockOpen={() => openWindow('clock')}
+/>
 
       <ClockWindow />
 

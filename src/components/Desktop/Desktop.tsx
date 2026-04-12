@@ -5,14 +5,24 @@ import { desktopIcons, type DesktopIconConfig } from '../../config/desktopIcons.
 
 interface Props {
   onPortfolioOpen: (tab?: string) => void
+  onLinksOpen: () => void
+  onClockOpen: () => void
 }
 
-const Desktop = ({ onPortfolioOpen }: Props) => {
-  const handleIconDoubleClick = (icon: DesktopIconConfig) => {
+const Desktop = ({ onPortfolioOpen, onLinksOpen, onClockOpen }: Props) => {
+ const handleIconDoubleClick = (icon: DesktopIconConfig) => {
   if (icon.action === 'link') {
     window.open(icon.target, '_blank')
   } else if (icon.action === 'window' && icon.target === 'portfolio') {
-    onPortfolioOpen('Projects')
+    if (icon.id === 'projects') {
+      onPortfolioOpen('Projects')
+    } else {
+      onPortfolioOpen('About')
+    }
+  } else if (icon.action === 'window' && icon.target === 'links') {
+    onLinksOpen()
+  } else if (icon.action === 'window' && icon.target === 'clock') {
+    onClockOpen()
   }
 }
 
