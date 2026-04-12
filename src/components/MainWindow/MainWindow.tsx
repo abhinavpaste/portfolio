@@ -8,14 +8,16 @@ import SkillsTab from './tabs/SkillsTab'
 import ContactTab from './tabs/ContactTab'
 
 const tabs = ['About', 'Projects', 'Skills', 'Contact']
-
 export interface MainWindowRef {
   goBack: () => void
   goForward: () => void
   activeTab: string
   canGoBack: boolean
   canGoForward: boolean
+  setTab: (tab: string) => void
 }
+
+
 
 const MainWindow = forwardRef<MainWindowRef>((_, ref) => {
   const [activeTab, setActiveTab] = useState('About')
@@ -46,14 +48,16 @@ const MainWindow = forwardRef<MainWindowRef>((_, ref) => {
     playSound()
   }
 
-  useImperativeHandle(ref, () => ({
-    goBack,
-    goForward,
-    activeTab,
-    canGoBack: historyIndex > 0,
-    canGoForward: historyIndex < history.length - 1,
-  }))
-
+useImperativeHandle(ref, () => ({
+  goBack,
+  goForward,
+  activeTab,
+  canGoBack: historyIndex > 0,
+  canGoForward: historyIndex < history.length - 1,
+  setTab: (tab: string) => {
+    setActiveTab(tab)
+  },
+}))
   const handleTabClick = (tab: string) => {
     playSound()
     navigateTo(tab)

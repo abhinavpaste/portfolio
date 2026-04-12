@@ -12,6 +12,7 @@ export const VideoBackground = styled.video`
   object-fit: fill;
 `
 
+
 export const IconWrapper = styled.div<{ x: number; y: number }>`
   position: absolute;
   left: ${({ x }) => x}px;
@@ -24,6 +25,7 @@ export const IconWrapper = styled.div<{ x: number; y: number }>`
   padding: 4px;
   cursor: pointer;
   border: 1px solid transparent;
+  user-select: none;
 
   &:hover {
     border: 1px dotted #ffffff;
@@ -39,8 +41,10 @@ export const IconWrapper = styled.div<{ x: number; y: number }>`
 export const IconImage = styled.img`
   width: 32px;
   height: 32px;
-  image-rendering: pixelated;
+  object-fit: contain;
 `
+
+
 
 export const IconLabel = styled.span`
   color: #ffffff;
@@ -50,4 +54,5 @@ export const IconLabel = styled.span`
   text-shadow: 1px 1px 1px #000000;
   line-height: 1.2;
   word-break: break-word;
+  user-select: none;
 `

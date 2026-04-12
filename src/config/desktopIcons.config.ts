@@ -1,6 +1,10 @@
+import reseIcon from '../assets/rese.png'
+import projectsIcon from '../assets/projects.png'
+import twitterIcon from '../assets/twitter.png'
 import leetcodeIcon from '../assets/leetcode-icon.png'
-import githubIcon from '../assets/github-icon.png'
-import resumeIcon from '../assets/resume-icon.png'
+import gh from '../assets/gh.png'
+import linkedinIcon from '../assets/linkedin.png'
+
 
 export type IconAction = 'window' | 'link'
 
@@ -9,18 +13,34 @@ export interface DesktopIconConfig {
   label: string
   icon: string
   action: IconAction
-  target: string        // window id if action is 'window', URL if action is 'link'
+  target: string
   position: { x: number; y: number }
 }
 
 export const desktopIcons: DesktopIconConfig[] = [
   {
+    id: 'resume',
+    label: 'Resume',
+    icon: reseIcon,
+    action: 'link',
+    target: '/resume.pdf',
+    position: { x: 20, y: 20 },
+  },
+  {
+    id: 'projects',
+    label: 'Projects',
+    icon: projectsIcon,
+    action: 'window',
+    target: 'portfolio',
+    position: { x: 20, y: 110 },
+  },
+  {
     id: 'github',
     label: 'GitHub',
-    icon: githubIcon,
+    icon: gh,
     action: 'link',
     target: 'https://github.com/abhinavpaste',
-    position: { x: 20, y: 20 },
+    position: { x: 20, y: 200 },
   },
   {
     id: 'leetcode',
@@ -28,22 +48,23 @@ export const desktopIcons: DesktopIconConfig[] = [
     icon: leetcodeIcon,
     action: 'link',
     target: 'https://leetcode.com/u/ElmIQosKNk/',
-    position: { x: 20, y: 110 },
+    position: { x: 20, y: 290 },
   },
   {
-    id: 'resume',
-    label: 'Resume',
-    icon: resumeIcon,
+    id: 'twitter',
+    label: 'Twitter',
+    icon: twitterIcon,
     action: 'link',
-    target: 'https://your-resume-link.com',
-    position: { x: 20, y: 200 },
+    target: 'https://twitter.com/thunderavalt',
+    position: { x: 20, y: 380 },
+    
   },
   {
-    id: 'portfolio',
-    label: 'My Portfolio',
-    icon: resumeIcon,   // add a PNG to assets and import it
-    action: 'window',
-    target: 'portfolio',
-    position: { x: 100, y: 300 },
-  }
+    id: 'linkedin',
+    label: 'LinkedIn',
+    icon: linkedinIcon,
+    action: 'link',
+    target: 'https://linkedin.com/in/abhinav-paste',
+    position: { x: 20, y: 470 },
+  },
 ]

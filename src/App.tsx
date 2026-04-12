@@ -17,6 +17,13 @@ const AppContent = () => {
   const playSound = useSound(0.3)
   const mainWindowRef = useRef<MainWindowRef>(null)
 
+  const handlePortfolioOpen = (tab?: string) => {
+    openWindow('portfolio')
+    if (tab) {
+      setTimeout(() => mainWindowRef.current?.setTab(tab), 50)
+    }
+  }
+
   const portfolioToolbar = (
     <>
       <ToolbarButton onClick={() => mainWindowRef.current?.goBack()}>
@@ -44,7 +51,7 @@ const AppContent = () => {
 
   return (
     <div style={{ width: '100vw', height: '100vh', overflow: 'hidden' }}>
-      <Desktop onPortfolioOpen={() => openWindow('portfolio')} />
+      <Desktop onPortfolioOpen={handlePortfolioOpen} />
 
       <ClockWindow />
 
@@ -77,10 +84,10 @@ const AppContent = () => {
           </div>
         </Window>
       ))}
+
       <LinksWindow />
       <Taskbar />
     </div>
-    
   )
 }
 

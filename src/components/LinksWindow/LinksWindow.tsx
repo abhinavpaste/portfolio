@@ -33,7 +33,7 @@ const LinksWindow = () => {
       height="auto"
       showMenu={false}
       isMinimized={linksWindow.isMinimized}
-      defaultPosition={{ x: window.innerWidth - 350, y: window.innerHeight - 500 }}
+      defaultPosition={{ x: window.innerWidth - 362, y: window.innerHeight - 520 }}
       onClose={() => closeWindow('links')}
       onMinimize={() => minimizeWindow('links')}
     >

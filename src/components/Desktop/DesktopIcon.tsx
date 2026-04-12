@@ -26,14 +26,16 @@ const DesktopIcon = ({ icon, onDoubleClick }: Props) => {
 
   return (
     <IconWrapper
-      x={icon.position.x}
-      y={icon.position.y}
-      className={selected ? 'selected' : ''}
-      onClick={handleClick}
-      onDoubleClick={handleDoubleClick}
-      onBlur={handleBlur}
-      tabIndex={0}
-    >
+  x={icon.position.x}
+  y={icon.position.y}
+  className={selected ? 'selected' : ''}
+  onClick={(e) => {
+    handleClick()
+    onDoubleClick(icon)
+  }}
+  onBlur={handleBlur}
+  tabIndex={0}
+>
       <IconImage src={icon.icon} alt={icon.label} />
       <IconLabel>{icon.label}</IconLabel>
     </IconWrapper>

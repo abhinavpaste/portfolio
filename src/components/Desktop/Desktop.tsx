@@ -4,17 +4,17 @@ import DesktopIcon from './DesktopIcon'
 import { desktopIcons, type DesktopIconConfig } from '../../config/desktopIcons.config'
 
 interface Props {
-  onPortfolioOpen: () => void
+  onPortfolioOpen: (tab?: string) => void
 }
 
 const Desktop = ({ onPortfolioOpen }: Props) => {
   const handleIconDoubleClick = (icon: DesktopIconConfig) => {
-    if (icon.action === 'link') {
-      window.open(icon.target, '_blank')
-    } else if (icon.action === 'window' && icon.target === 'portfolio') {
-      onPortfolioOpen()
-    }
+  if (icon.action === 'link') {
+    window.open(icon.target, '_blank')
+  } else if (icon.action === 'window' && icon.target === 'portfolio') {
+    onPortfolioOpen('Projects')
   }
+}
 
   return (
     <DesktopWrapper>

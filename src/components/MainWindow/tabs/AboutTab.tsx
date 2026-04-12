@@ -92,7 +92,7 @@ const AboutTab = () => {
         background: '#ffffff',
         padding: '8px',
       }}>
-        I am a pre-final year CSE undergraduate and a backend developer with a strong interest in systems programming. I enjoy understanding systems from first principles and building solutions from the ground up, with a focus on strong logical foundations. I primarily work with Golang and Node.js for backend development, and C/C++ for system-level programming. I am actively seeking internship opportunities and open to work.
+        I am a pre-final year CSE undergraduate and a backend developer with a strong interest in systems programming. I enjoy understanding systems from first principles and building solutions from the ground up, with a focus on strong logical foundations. I primarily work with Golang and Node.js for backend development, and C/C++ for system-level programming.
       </div>
 
     </div>
