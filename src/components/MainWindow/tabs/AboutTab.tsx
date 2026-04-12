@@ -41,7 +41,7 @@ const AboutTab = () => {
             fontFamily: 'Tahoma, Arial, sans-serif',
             marginTop: '4px',
           }}>
-            Pre-final year CSE undergrad
+            Pre-final year CSE undergrad, Bangalore, India
           </div>
         </div>
       </div>

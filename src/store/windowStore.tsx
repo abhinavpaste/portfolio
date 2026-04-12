@@ -48,6 +48,12 @@ const initialWindows: WindowState[] = [
     isOpen: false,
     isMinimized: false,
   },
+  {
+  id: 'links',
+  title: 'Links',
+  isOpen: true,
+  isMinimized: false,
+},
 ]
 
 export const WindowProvider = ({ children }: { children: React.ReactNode }) => {

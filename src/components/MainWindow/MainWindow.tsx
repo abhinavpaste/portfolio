@@ -5,6 +5,7 @@ import ProjectsTab from './tabs/ProjectsTab'
 import useSound from '../../hooks/useSound'
 import { useWindowStore } from '../../store/windowStore'
 import SkillsTab from './tabs/SkillsTab'
+import ContactTab from './tabs/ContactTab'
 
 const tabs = ['About', 'Projects', 'Skills', 'Contact']
 
@@ -67,6 +68,7 @@ const MainWindow = forwardRef<MainWindowRef>((_, ref) => {
       case 'Skills': return <SkillsTab />
       case 'About': return <AboutTab />
       case 'Projects': return <ProjectsTab onOpenDetails={handleOpenDetails} />
+      case 'Contact': return <ContactTab />
       default: return (
         <div style={{ fontFamily: 'Tahoma', fontSize: '11px' }}>Coming soon...</div>
       )

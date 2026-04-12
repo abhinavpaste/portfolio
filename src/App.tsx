@@ -8,6 +8,7 @@ import { ToolbarButton, ToolbarSep, AddressBar, AddressInput, StatusPanel } from
 import { projects } from './config/projects.config'
 import useSound from './hooks/useSound'
 import ClockWindow from './components/Clockwindow/clockwindow'
+import LinksWindow from './components/LinksWindow/LinksWindow'
 
 const AppContent = () => {
   const { windows, closeWindow, minimizeWindow, openWindow } = useWindowStore()
@@ -76,9 +77,10 @@ const AppContent = () => {
           </div>
         </Window>
       ))}
-
+      <LinksWindow />
       <Taskbar />
     </div>
+    
   )
 }
 
