@@ -10,10 +10,8 @@ const fadeOut = keyframes`
   to { opacity: 0; }
 `
 
-const fadeIn = keyframes`
-  from { opacity: 0; }
-  to { opacity: 1; }
-`
+
+
 
 export const BootWrapper = styled.div<{ fading: boolean }>`
   position: fixed;

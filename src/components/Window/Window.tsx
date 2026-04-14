@@ -46,7 +46,7 @@ const Window = ({
   const defaultY = defaultPosition?.y ?? Math.round(window.innerHeight / 2 - 300)
 
   const [position, setPosition] = useState({ x: defaultX, y: defaultY })
-  const [isActive, setIsActive] = useState(true)
+  const [isActive] = useState(true)
 
   const isDragging = useRef(false)
   const dragOffset = useRef({ x: 0, y: 0 })

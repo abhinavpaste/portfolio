@@ -17,9 +17,7 @@ const DesktopIcon = ({ icon, onDoubleClick }: Props) => {
     playSound()
   }
 
-  const handleDoubleClick = () => {
-    onDoubleClick(icon)
-  }
+  
 
   // deselect when clicking elsewhere
   const handleBlur = () => setSelected(false)
@@ -29,7 +27,7 @@ const DesktopIcon = ({ icon, onDoubleClick }: Props) => {
   x={icon.position.x}
   y={icon.position.y}
   className={selected ? 'selected' : ''}
-  onClick={(e) => {
+  onClick={() => {
     handleClick()
     onDoubleClick(icon)
   }}
