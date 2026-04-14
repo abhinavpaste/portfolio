@@ -69,7 +69,7 @@ const AppContent = () => {
         <Window
           title="Portfolio.exe"
           width={830}
-          height="520px"
+          height="480px"
           defaultPosition={{ x: 300, y: 50 }}
           isMinimized={portfolio.isMinimized}
           onClose={() => closeWindow('portfolio')}
