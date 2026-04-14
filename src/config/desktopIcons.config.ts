@@ -26,8 +26,8 @@ export const desktopIcons: DesktopIconConfig[] = [
     label: 'Resume',
     icon: reseIcon,
     action: 'link',
-    target: '/resume.pdf',
-    position: { x: 180, y: 180 },
+    target: '/abhinavpaste.pdf',
+    position: { x: 120, y: 180 },
   },
   {
     id: 'projects',
@@ -35,7 +35,7 @@ export const desktopIcons: DesktopIconConfig[] = [
     icon: projectsIcon,
     action: 'window',
     target: 'portfolio',
-    position: { x: 260, y: 180 },
+    position: { x: 200, y: 180 },
   },
   {
     id: 'github',
@@ -51,14 +51,14 @@ export const desktopIcons: DesktopIconConfig[] = [
     icon: leetcodeIcon,
     action: 'link',
     target: 'https://leetcode.com/u/ElmIQosKNk/',
-    position: { x: 20, y: 470 },
+    position: { x: 20, y: 260 },
   },
   {
     id: 'twitter',
     label: 'Twitter',
     icon: twitterIcon,
     action: 'link',
-    target: 'https://twitter.com/thunderavalt',
+    target: 'https://twitter.com/thundervalt',
     position: { x: 20, y: 180 },
     
   },
@@ -68,7 +68,7 @@ export const desktopIcons: DesktopIconConfig[] = [
   icon: linksIcon,
   action: 'window',
   target: 'links',
-  position: { x: 260, y: 260 },
+  position: { x: 200, y: 320 },
 },
   {
     id: 'linkedin',
@@ -84,7 +84,7 @@ export const desktopIcons: DesktopIconConfig[] = [
   icon: pfIcon,
   action: 'window',
   target: 'portfolio',
-  position: { x: 180, y: 260 },
+  position: { x: 120, y: 260 },
 },
 {
   id: 'timedate-icon',
@@ -92,7 +92,7 @@ export const desktopIcons: DesktopIconConfig[] = [
   icon: timedateIcon,
   action: 'window',
   target: 'clock',
-  position: { x: 180, y: 465 },
+  position: { x: 1160, y: 500 },
 },
   
 ]

@@ -66,7 +66,7 @@ const AboutTab = () => {
           {[
             { label: 'GitHub', url: 'https://github.com/abhinavpaste', icon: githubIcon },
             { label: 'LinkedIn', url: 'https://www.linkedin.com/in/abhinav-paste/', icon: linkedinIcon },
-            { label: 'Resume', url: 'YOUR_RESUME_URL', icon: resumeIcon },
+            { label: 'Resume', url: '/abhinavpaste.pdf', icon: resumeIcon },
           ].map(({ label, url, icon }) => (
             <div key={label} style={{ display: 'flex', gap: '8px', alignItems: 'center', fontSize: '13px', fontFamily: 'Tahoma, Arial, sans-serif' }}>
               <img src={icon} alt={label} style={{ width: '16px', height: '16px', objectFit: 'contain' }} />

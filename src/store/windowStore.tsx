@@ -20,7 +20,7 @@ const WindowContext = createContext<WindowStore | null>(null)
 const initialWindows: WindowState[] = [
   {
     id: 'portfolio',
-    title: 'Abhinav Paste — Portfolio',
+    title: 'Portfolio',
     isOpen: true,
     isMinimized: false,
   },
@@ -52,6 +52,12 @@ const initialWindows: WindowState[] = [
   id: 'links',
   title: 'Links',
   isOpen: true,
+  isMinimized: false,
+},
+{
+  id: 'details-crev',
+  title: 'crev — Project Details',
+  isOpen: false,
   isMinimized: false,
 },
 ]

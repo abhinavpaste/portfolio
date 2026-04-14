@@ -14,7 +14,7 @@ const links = [
     category: 'work',
     items: [
       { label: 'LeetCode', url: 'https://leetcode.com/u/ElmIQosKNk/' },
-      { label: 'Resume', url: '/resume.pdf' },
+      { label: 'Resume', url: '/abhinavpaste.pdf' },
       { label: 'Codeforces', url: 'https://codeforces.com/profile/valtrex' },
     ],
   },

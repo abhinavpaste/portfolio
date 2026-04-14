@@ -9,6 +9,7 @@ import { projects } from './config/projects.config'
 import useSound from './hooks/useSound'
 import ClockWindow from './components/Clockwindow/clockwindow'
 import LinksWindow from './components/LinksWindow/LinksWindow'
+import ProjectDetail from './components/ProjectDetail/ProjectDetail'
 import { useState } from 'react'
 import Boot from './components/Boot/Boot'
 
@@ -67,8 +68,9 @@ const AppContent = () => {
       {portfolio?.isOpen && (
         <Window
           title="Portfolio.exe"
-          width={750}
-          height="500px"
+          width={830}
+          height="520px"
+          defaultPosition={{ x: 300, y: 50 }}
           isMinimized={portfolio.isMinimized}
           onClose={() => closeWindow('portfolio')}
           onMinimize={() => minimizeWindow('portfolio')}
@@ -80,22 +82,21 @@ const AppContent = () => {
       )}
 
       {detailWindows.filter(w => w.isOpen).map(w => (
-        <Window
-          key={w.id}
-          title={w.title}
-          width={400}
-          isMinimized={w.isMinimized}
-          onClose={() => closeWindow(w.id)}
-          onMinimize={() => minimizeWindow(w.id)}
-        >
-          <div style={{ padding: '12px', fontFamily: 'Tahoma, Arial, sans-serif', fontSize: '11px' }}>
-            Detailed view coming soon...
-          </div>
-        </Window>
-      ))}
+  <Window
+    key={w.id}
+    title={w.title}
+    width={500}
+    height="550px"
+    isMinimized={w.isMinimized}
+    onClose={() => closeWindow(w.id)}
+    onMinimize={() => minimizeWindow(w.id)}
+  >
+    <ProjectDetail projectId={w.id.replace('details-', '')} />
+  </Window>
+))}
 
       <LinksWindow />
-      <Taskbar />
+      <Taskbar onOpenPortfolio={(tab) => handlePortfolioOpen(tab)} />
     </div>
   )
 }

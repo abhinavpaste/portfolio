@@ -17,7 +17,7 @@ export const IconWrapper = styled.div<{ x: number; y: number }>`
   position: absolute;
   left: ${({ x }) => x}px;
   top: ${({ y }) => y}px;
-  width: 72px;
+  width: 80px;
   display: flex;
   flex-direction: column;
   align-items: center;

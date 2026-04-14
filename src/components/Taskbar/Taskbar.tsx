@@ -5,13 +5,26 @@ import {
   StartButton,
   Divider,
   Tray,
+  TaskbarButton,
 } from './Taskbar.styles'
-import { TaskbarButton } from './Taskbar.styles'
 import windows from '../../assets/windows.png'
 import useSound from '../../hooks/useSound'
 import { useWindowStore } from '../../store/windowStore'
+import pfIcon from '../../assets/pf.png'
+import timedateIcon from '../../assets/timedate.png'
+import linksIcon from '../../assets/links.png'
 
-const Taskbar = () => {
+const windowIcons: Record<string, string> = {
+  'portfolio': pfIcon,
+  'clock': timedateIcon,
+  'links': linksIcon,
+}
+
+interface Props {
+  onOpenPortfolio: (tab: string) => void
+}
+
+const Taskbar = ({ onOpenPortfolio }: Props) => {
   const [isOpen, setIsOpen] = useState(false)
   const [time, setTime] = useState('')
   const menuRef = useRef<HTMLDivElement>(null)
@@ -44,7 +57,13 @@ const Taskbar = () => {
 
   return (
     <div ref={menuRef}>
-      {isOpen && <StartMenu />}
+      {isOpen && (
+        <StartMenu onOpenPortfolio={(tab) => {
+          onOpenPortfolio(tab)
+          setIsOpen(false)
+        }} />
+      )}
+
       <TaskbarWrapper>
         <StartButton onClick={() => { playSound(); setIsOpen(prev => !prev) }}>
           <img src={windows} alt="Windows" style={{ width: '18px', height: '18px' }} />
@@ -53,12 +72,18 @@ const Taskbar = () => {
 
         <Divider />
 
-        {/* Taskbar window buttons */}
         {openWindows.filter(w => w.isOpen).map(w => (
           <TaskbarButton
             key={w.id}
             onClick={() => { playSound(); toggleWindow(w.id) }}
           >
+            {windowIcons[w.id] && (
+              <img
+                src={windowIcons[w.id]}
+                alt={w.title}
+                style={{ width: '14px', height: '14px', objectFit: 'contain' }}
+              />
+            )}
             {w.title}
           </TaskbarButton>
         ))}
