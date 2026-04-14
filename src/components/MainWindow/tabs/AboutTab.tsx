@@ -1,4 +1,4 @@
-import photo from '../../../assets/photo.jpg'
+import photo from '../../../assets/photo.jpeg'
 import githubIcon from '../../../assets/github.png'
 import linkedinIcon from '../../../assets/linkedin.png'
 import resumeIcon from '../../../assets/resume-icon.png'
