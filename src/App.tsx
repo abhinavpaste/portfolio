@@ -1,4 +1,4 @@
-import { useRef } from 'react'
+import { useRef, useState, useEffect } from 'react'  // add useEffect
 import Desktop from './components/Desktop/Desktop'
 import Taskbar from './components/Taskbar/Taskbar'
 import Window from './components/Window/Window'
@@ -10,8 +10,8 @@ import useSound from './hooks/useSound'
 import ClockWindow from './components/Clockwindow/clockwindow'
 import LinksWindow from './components/LinksWindow/LinksWindow'
 import ProjectDetail from './components/ProjectDetail/ProjectDetail'
-import { useState } from 'react'
 import Boot from './components/Boot/Boot'
+import MobileLayout from './components/MobileLayout/MobileLayout'  // ADD THIS
 
 const AppContent = () => {
   const { windows, closeWindow, minimizeWindow, openWindow } = useWindowStore()
@@ -19,9 +19,20 @@ const AppContent = () => {
   const detailWindows = windows.filter(w => w.id.startsWith('details-'))
   const playSound = useSound(0.3)
   const mainWindowRef = useRef<MainWindowRef>(null)
-    const [booting, setBooting] = useState(true)
+  const [booting, setBooting] = useState(true)
+
+  // ADD THIS — detect mobile
+  const [isMobile, setIsMobile] = useState(() => window.innerWidth < 768)
+  useEffect(() => {
+    const handler = () => setIsMobile(window.innerWidth < 768)
+    window.addEventListener('resize', handler)
+    return () => window.removeEventListener('resize', handler)
+  }, [])
 
   if (booting) return <Boot onComplete={() => setBooting(false)} />
+
+  // ADD THIS — mobile gets its own layout
+  if (isMobile) return <MobileLayout />
 
   const handlePortfolioOpen = (tab?: string) => {
     openWindow('portfolio')
@@ -29,15 +40,10 @@ const AppContent = () => {
       setTimeout(() => mainWindowRef.current?.setTab(tab), 50)
     }
   }
-
   const portfolioToolbar = (
     <>
-      <ToolbarButton onClick={() => mainWindowRef.current?.goBack()}>
-        ← Back
-      </ToolbarButton>
-      <ToolbarButton onClick={() => mainWindowRef.current?.goForward()}>
-        → Forward
-      </ToolbarButton>
+      <ToolbarButton onClick={() => mainWindowRef.current?.goBack()}>← Back</ToolbarButton>
+      <ToolbarButton onClick={() => mainWindowRef.current?.goForward()}>→ Forward</ToolbarButton>
       <ToolbarSep />
       <ToolbarButton onClick={() => playSound()}>↑ Up</ToolbarButton>
       <ToolbarSep />
@@ -47,24 +53,20 @@ const AppContent = () => {
       </AddressBar>
     </>
   )
-
   const portfolioStatusBar = (
     <>
       <StatusPanel>{projects.length} object(s)</StatusPanel>
       <StatusPanel>Last modified: 2026</StatusPanel>
     </>
   )
-
   return (
     <div style={{ width: '100vw', height: '100vh', overflow: 'hidden' }}>
-  <Desktop 
-  onPortfolioOpen={handlePortfolioOpen}
-  onLinksOpen={() => openWindow('links')}
-  onClockOpen={() => openWindow('clock')}
-/>
-
+      <Desktop
+        onPortfolioOpen={handlePortfolioOpen}
+        onLinksOpen={() => openWindow('links')}
+        onClockOpen={() => openWindow('clock')}
+      />
       <ClockWindow />
-
       {portfolio?.isOpen && (
         <Window
           title="Portfolio.exe"
@@ -80,21 +82,19 @@ const AppContent = () => {
           <MainWindow ref={mainWindowRef} />
         </Window>
       )}
-
       {detailWindows.filter(w => w.isOpen).map(w => (
-  <Window
-    key={w.id}
-    title={w.title}
-    width={500}
-    height="550px"
-    isMinimized={w.isMinimized}
-    onClose={() => closeWindow(w.id)}
-    onMinimize={() => minimizeWindow(w.id)}
-  >
-    <ProjectDetail projectId={w.id.replace('details-', '')} />
-  </Window>
-))}
-
+        <Window
+          key={w.id}
+          title={w.title}
+          width={500}
+          height="550px"
+          isMinimized={w.isMinimized}
+          onClose={() => closeWindow(w.id)}
+          onMinimize={() => minimizeWindow(w.id)}
+        >
+          <ProjectDetail projectId={w.id.replace('details-', '')} />
+        </Window>
+      ))}
       <LinksWindow />
       <Taskbar onOpenPortfolio={(tab) => handlePortfolioOpen(tab)} />
     </div>
@@ -108,5 +108,4 @@ function App() {
     </WindowProvider>
   )
 }
-
 export default App
