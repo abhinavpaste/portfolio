@@ -13,7 +13,14 @@ body {
 ::-webkit-scrollbar {
   width: 16px;
 }
-
+@media (max-width: 768px) {
+  .app-root {
+    height: auto !important;
+    min-height: 100vh;
+    overflow-y: auto !important;
+    padding-bottom: 36px; /* taskbar height */
+  }
+}
 ::-webkit-scrollbar-track {
   background: #c0c0c0;
   border-left: 1px solid #808080;
@@ -61,4 +68,24 @@ body {
 ::-webkit-scrollbar-button:vertical:increment:start {
   display: none;
 }
- 
+ @media (max-width: 768px) {
+  .app-root {
+    height: auto !important;
+    min-height: 100vh;
+    overflow-y: auto !important;
+    padding-bottom: 36px;
+  }
+
+  /* Icons flow in a grid instead of absolute positions */
+  .icons-container {
+    display: flex;
+    flex-wrap: wrap;
+    padding: 12px 8px;
+    gap: 8px;
+  }
+
+  /* Disable dragging on mobile — title bar shouldn't show grab cursor */
+  [data-title-bar] {
+    cursor: default !important;
+  }
+}

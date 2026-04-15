@@ -10,32 +10,34 @@ interface Props {
 }
 
 const Desktop = ({ onPortfolioOpen, onLinksOpen, onClockOpen }: Props) => {
- const handleIconDoubleClick = (icon: DesktopIconConfig) => {
-  if (icon.action === 'link') {
-    window.open(icon.target, '_blank')
-  } else if (icon.action === 'window' && icon.target === 'portfolio') {
-    if (icon.id === 'projects') {
-      onPortfolioOpen('Projects')
-    } else {
-      onPortfolioOpen('About')
+  const handleIconDoubleClick = (icon: DesktopIconConfig) => {
+    if (icon.action === 'link') {
+      window.open(icon.target, '_blank')
+    } else if (icon.action === 'window' && icon.target === 'portfolio') {
+      if (icon.id === 'projects') {
+        onPortfolioOpen('Projects')
+      } else {
+        onPortfolioOpen('About')
+      }
+    } else if (icon.action === 'window' && icon.target === 'links') {
+      onLinksOpen()
+    } else if (icon.action === 'window' && icon.target === 'clock') {
+      onClockOpen()
     }
-  } else if (icon.action === 'window' && icon.target === 'links') {
-    onLinksOpen()
-  } else if (icon.action === 'window' && icon.target === 'clock') {
-    onClockOpen()
   }
-}
 
   return (
     <DesktopWrapper>
       <VideoBackground src={wallpaper} autoPlay loop muted />
-      {desktopIcons.map((icon) => (
-        <DesktopIcon
-          key={icon.id}
-          icon={icon}
-          onDoubleClick={handleIconDoubleClick}
-        />
-      ))}
+      <div className="icons-container">
+        {desktopIcons.map((icon) => (
+          <DesktopIcon
+            key={icon.id}
+            icon={icon}
+            onDoubleClick={handleIconDoubleClick}
+          />
+        ))}
+      </div>
     </DesktopWrapper>
   )
 }

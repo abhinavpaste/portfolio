@@ -4,14 +4,28 @@ export const DesktopWrapper = styled.div`
   position: fixed;
   inset: 0;
   z-index: 0;
+
+  @media (max-width: 768px) {
+    position: relative;
+    min-height: 100vh;
+    height: auto;
+    padding-bottom: 36px;
+  }
 `
 
 export const VideoBackground = styled.video`
   width: 100%;
   height: 100%;
   object-fit: fill;
-`
 
+  @media (max-width: 768px) {
+    position: fixed;
+    inset: 0;
+    width: 100vw;
+    height: 100vh;
+    z-index: -1;
+  }
+`
 
 export const IconWrapper = styled.div<{ x: number; y: number }>`
   position: absolute;
@@ -36,6 +50,12 @@ export const IconWrapper = styled.div<{ x: number; y: number }>`
     border: 1px dotted #ffffff;
     background: rgba(0, 0, 128, 0.5);
   }
+
+  @media (max-width: 768px) {
+    position: relative;
+    left: auto;
+    top: auto;
+  }
 `
 
 export const IconImage = styled.img`
@@ -43,8 +63,6 @@ export const IconImage = styled.img`
   height: 32px;
   object-fit: contain;
 `
-
-
 
 export const IconLabel = styled.span`
   color: #ffffff;

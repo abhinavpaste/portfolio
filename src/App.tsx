@@ -60,13 +60,13 @@ const AppContent = () => {
     </>
   )
   return (
-    <div style={{ width: '100vw', height: '100vh', overflow: 'hidden' }}>
-      <Desktop
-        onPortfolioOpen={handlePortfolioOpen}
-        onLinksOpen={() => openWindow('links')}
-        onClockOpen={() => openWindow('clock')}
-      />
-      <ClockWindow />
+    <div className="app-root" style={{ width: '100vw', height: '100vh', overflow: 'hidden' }}>
+    <Desktop
+      onPortfolioOpen={handlePortfolioOpen}
+      onLinksOpen={() => openWindow('links')}
+      onClockOpen={() => openWindow('clock')}
+    />
+    <ClockWindow />
       {portfolio?.isOpen && (
         <Window
           title="Portfolio.exe"

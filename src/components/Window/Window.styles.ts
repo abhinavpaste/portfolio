@@ -1,5 +1,4 @@
 import styled from 'styled-components'
-
 export const WindowWrapper = styled.div<{ x: number; y: number; width: number; height?: string }>`
   position: fixed;
   left: ${({ x }) => x}px;
@@ -14,6 +13,15 @@ export const WindowWrapper = styled.div<{ x: number; y: number; width: number; h
   flex-direction: column;
   z-index: 100;
   user-select: none;
+
+  @media (max-width: 768px) {
+    position: relative !important;
+    left: auto !important;
+    top: auto !important;
+    width: calc(100vw - 16px) !important;
+    height: auto !important;
+    margin: 8px auto;
+  }
 `
 export const TitleBar = styled.div<{ isActive: boolean }>`
   background: ${({ isActive }) => isActive 
@@ -27,6 +35,7 @@ export const TitleBar = styled.div<{ isActive: boolean }>`
   cursor: grab;
   flex-shrink: 0;
 `
+
 
 export const TitleLeft = styled.div`
   display: flex;
@@ -73,6 +82,10 @@ export const WindowBody = styled.div`
   flex-direction: column;
   flex: 1;
   overflow: hidden;
+
+  @media (max-width: 768px) {
+    overflow: visible;
+  }
 `
 
 export const MenuBar = styled.div`
