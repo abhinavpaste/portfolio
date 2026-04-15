@@ -2,8 +2,11 @@
 
   export const TabBar = styled.div`
     display: flex;
+    flex-wrap: wrap;
+    row-gap: 2px;
     padding: 4px 0 0 4px;
     background: #c0c0c0;
+    overflow-x: auto;
   `
   export const TitleBar = styled.div<{ isActive: boolean }>`
     background: ${({ isActive }) => isActive 
@@ -31,6 +34,11 @@
     border-bottom: ${({ isActive }) => isActive ? 'none' : '2px solid #808080'};
     z-index: ${({ isActive }) => isActive ? 2 : 1};
     margin-right: 0;
+
+    @media (max-width: 768px) {
+      padding: 3px 10px;
+      font-size: 10px;
+    }
   `
   export const ProjectItem = styled.div`
     display: flex;
