@@ -18,9 +18,10 @@ export const WindowWrapper = styled.div<{ x: number; y: number; width: number; h
     position: relative !important;
     left: auto !important;
     top: auto !important;
-    width: calc(100vw - 4px) !important;
+    width: calc(100vw - 12px) !important;
+    max-width: 420px;
     height: auto !important;
-    margin: 4px auto;
+    margin: 6px auto;
     box-shadow: 1px 1px 0 #000000;
   }
 `
