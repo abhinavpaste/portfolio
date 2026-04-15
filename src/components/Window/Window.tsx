@@ -52,6 +52,8 @@ const Window = ({
   const dragOffset = useRef({ x: 0, y: 0 })
 
   const handleMouseDown = (e: React.MouseEvent) => {
+    if (window.innerWidth <= 768) return
+
     isDragging.current = true
     dragOffset.current = {
       x: e.clientX - position.x,
@@ -75,6 +77,8 @@ const Window = ({
       document.removeEventListener('mouseup', handleMouseUp)
     }
   }, [])
+
+  const isMobile = window.innerWidth <= 768
 
   if (isMinimized) return null
 
@@ -109,6 +113,8 @@ const Window = ({
           display: 'flex',
           alignItems: 'center',
           gap: '4px',
+          flexWrap: isMobile ? 'wrap' : 'nowrap',
+          rowGap: isMobile ? '3px' : '0',
         }}>
           {toolbar}
         </div>

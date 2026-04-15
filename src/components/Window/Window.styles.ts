@@ -18,9 +18,10 @@ export const WindowWrapper = styled.div<{ x: number; y: number; width: number; h
     position: relative !important;
     left: auto !important;
     top: auto !important;
-    width: calc(100vw - 16px) !important;
+    width: calc(100vw - 4px) !important;
     height: auto !important;
-    margin: 8px auto;
+    margin: 4px auto;
+    box-shadow: 1px 1px 0 #000000;
   }
 `
 export const TitleBar = styled.div<{ isActive: boolean }>`
@@ -33,6 +34,10 @@ export const TitleBar = styled.div<{ isActive: boolean }>`
   justify-content: space-between;
   height: 22px;
   cursor: grab;
+
+  @media (max-width: 768px) {
+    cursor: default;
+  }
   flex-shrink: 0;
 `
 
@@ -139,6 +144,10 @@ export const AddressBar = styled.div`
   flex: 1;
   font-size: 11px;
   font-family: 'Tahoma', Arial, sans-serif;
+
+  @media (max-width: 768px) {
+    flex-basis: 100%;
+  }
 `
 
 export const AddressInput = styled.div`

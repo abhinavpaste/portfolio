@@ -72,10 +72,24 @@ body {
     padding-bottom: 36px;
   }
 
+  .app-root--mobile {
+    display: flex;
+    flex-direction: column;
+    align-items: stretch;
+    gap: 4px;
+    padding-bottom: 40px;
+  }
+
   .icons-container {
     display: flex;
     flex-wrap: wrap;
     padding: 12px 8px;
     gap: 8px;
+  }
+
+  .app-root--mobile .icons-container {
+    margin-top: auto;
+    justify-content: center;
+    padding: 12px 8px 72px;
   }
 }
