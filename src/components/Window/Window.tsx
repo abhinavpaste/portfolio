@@ -109,7 +109,6 @@ const Window = ({
           display: 'flex',
           alignItems: 'center',
           gap: '4px',
-          flexWrap: 'wrap',
         }}>
           {toolbar}
         </div>
