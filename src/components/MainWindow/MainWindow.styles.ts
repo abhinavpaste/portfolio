@@ -1,10 +1,17 @@
   import styled from 'styled-components'
 
   export const TabBar = styled.div`
-    display: flex;
-    padding: 4px 0 0 4px;
-    background: #c0c0c0;
-  `
+  display: flex;
+  padding: 4px 0 0 4px;
+  background: #c0c0c0;
+
+  @media (max-width: 768px) {
+    flex-direction: column;
+    padding: 4px;
+    gap: 2px;
+  }
+`
+
   export const TitleBar = styled.div<{ isActive: boolean }>`
     background: ${({ isActive }) => isActive 
       ? 'linear-gradient(to right, #000080, #1084d0)' 
@@ -18,20 +25,33 @@
     flex-shrink: 0;
   `
   export const Tab = styled.div<{ isActive: boolean }>`
-    padding: 3px 16px;
-    font-size: 11px;
-    font-family: 'Tahoma', Arial, sans-serif;
-    cursor: pointer;
-    background: #c0c0c0;
-    position: relative;
-    top: 2px;
-    border-top: 2px solid ${({ isActive }) => isActive ? '#ffffff' : '#808080'};
-    border-left: 2px solid ${({ isActive }) => isActive ? '#ffffff' : '#808080'};
-    border-right: 1px solid #404040;
-    border-bottom: ${({ isActive }) => isActive ? 'none' : '2px solid #808080'};
-    z-index: ${({ isActive }) => isActive ? 2 : 1};
-    margin-right: 0;
-  `
+  padding: 3px 16px;
+  font-size: 11px;
+  font-family: 'Tahoma', Arial, sans-serif;
+  cursor: pointer;
+  background: #c0c0c0;
+  position: relative;
+  top: 2px;
+  border-top: 2px solid ${({ isActive }) => isActive ? '#ffffff' : '#808080'};
+  border-left: 2px solid ${({ isActive }) => isActive ? '#ffffff' : '#808080'};
+  border-right: 1px solid #404040;
+  border-bottom: ${({ isActive }) => isActive ? 'none' : '2px solid #808080'};
+  z-index: ${({ isActive }) => isActive ? 2 : 1};
+  margin-right: 0;
+
+  @media (max-width: 768px) {
+    position: static;
+    top: auto;
+    border: 2px solid;
+    border-color: ${({ isActive }) => isActive
+      ? '#ffffff #404040 #404040 #ffffff'
+      : '#808080 #ffffff #ffffff #808080'};
+    border-bottom: 2px solid ${({ isActive }) => isActive ? '#000080' : '#808080'};
+    background: ${({ isActive }) => isActive ? '#ffffff' : '#c0c0c0'};
+    font-weight: ${({ isActive }) => isActive ? 'bold' : 'normal'};
+    padding: 6px 16px;
+  }
+`
   export const ProjectItem = styled.div`
     display: flex;
     gap: 10px;
