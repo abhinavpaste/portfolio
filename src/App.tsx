@@ -11,7 +11,7 @@ import ClockWindow from './components/Clockwindow/clockwindow'
 import LinksWindow from './components/LinksWindow/LinksWindow'
 import ProjectDetail from './components/ProjectDetail/ProjectDetail'
 import Boot from './components/Boot/Boot'
-import MobileLayout from './components/MobileLayout/MobileLayout'  // ADD THIS
+
 
 const AppContent = () => {
   const { windows, closeWindow, minimizeWindow, openWindow } = useWindowStore()
@@ -21,18 +21,13 @@ const AppContent = () => {
   const mainWindowRef = useRef<MainWindowRef>(null)
   const [booting, setBooting] = useState(true)
 
-  // ADD THIS — detect mobile
-  const [isMobile, setIsMobile] = useState(() => window.innerWidth < 768)
-  useEffect(() => {
-    const handler = () => setIsMobile(window.innerWidth < 768)
-    window.addEventListener('resize', handler)
-    return () => window.removeEventListener('resize', handler)
-  }, [])
+ 
+  
 
   if (booting) return <Boot onComplete={() => setBooting(false)} />
 
   // ADD THIS — mobile gets its own layout
-  if (isMobile) return <MobileLayout />
+
 
   const handlePortfolioOpen = (tab?: string) => {
     openWindow('portfolio')
