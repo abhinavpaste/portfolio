@@ -13,8 +13,20 @@ export const TaskbarWrapper = styled.div`
   padding: 2px 4px;
   gap: 4px;
   z-index: 1000;
-  user-select: none;                                          
+  user-select: none;
+
+  @media (max-width: 768px) {
+    overflow-x: auto;
+    overflow-y: hidden;
+    padding-right: 2px;
+    scrollbar-width: none;
+
+    &::-webkit-scrollbar {
+      display: none;
+    }
+  }
 `
+
 export const TaskbarButton = styled.button`
   height: 22px;
   padding: 0 8px;
@@ -32,7 +44,19 @@ export const TaskbarButton = styled.button`
   &:active {
     border-color: #ffffff #808080 #808080 #ffffff;
   }
+
+  @media (max-width: 768px) {
+    max-width: none;
+    min-width: 26px;
+    padding: 0 5px;
+    flex-shrink: 0;
+
+    .task-title {
+      display: none;
+    }
+  }
 `
+
 export const StartButton = styled.button`
   height: 22px;
   padding: 0 6px;
@@ -49,6 +73,10 @@ export const StartButton = styled.button`
 
   &:active {
     border-color: #404040 #ffffff #ffffff #404040;
+  }
+
+  @media (max-width: 768px) {
+    flex-shrink: 0;
   }
 `
 
@@ -71,4 +99,10 @@ export const Tray = styled.div`
   gap: 8px;
   font-size: 11px;
   font-family: 'Tahoma', Arial, sans-serif;
+
+  @media (max-width: 768px) {
+    flex-shrink: 0;
+    gap: 4px;
+    padding: 0 4px;
+  }
 `

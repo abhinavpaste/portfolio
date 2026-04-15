@@ -78,6 +78,8 @@ const Window = ({
     }
   }, [])
 
+  const isMobile = window.innerWidth <= 768
+
   if (isMinimized) return null
 
   return (
@@ -111,6 +113,8 @@ const Window = ({
           display: 'flex',
           alignItems: 'center',
           gap: '4px',
+          flexWrap: isMobile ? 'wrap' : 'nowrap',
+          rowGap: isMobile ? '3px' : '0',
         }}>
           {toolbar}
         </div>

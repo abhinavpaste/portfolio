@@ -145,6 +145,10 @@ export const AddressBar = styled.div`
   flex: 1;
   font-size: 11px;
   font-family: 'Tahoma', Arial, sans-serif;
+
+  @media (max-width: 768px) {
+    flex-basis: 100%;
+  }
 `
 
 export const AddressInput = styled.div`

@@ -84,7 +84,7 @@ const Taskbar = ({ onOpenPortfolio }: Props) => {
                 style={{ width: '14px', height: '14px', objectFit: 'contain' }}
               />
             )}
-            {w.title}
+            <span className="task-title">{w.title}</span>
           </TaskbarButton>
         ))}
 

@@ -44,10 +44,10 @@ const AppContent = () => {
       <ToolbarButton onClick={() => mainWindowRef.current?.goForward()}>→ Forward</ToolbarButton>
       <ToolbarSep />
       <ToolbarButton onClick={() => playSound()}>↑ Up</ToolbarButton>
-      <ToolbarSep />
+      {!isMobile && <ToolbarSep />}
       <AddressBar>
         <span>Address:</span>
-        <AddressInput>C:\Users\Abhinav\Portfolio</AddressInput>
+        <AddressInput>{isMobile ? 'Portfolio' : 'C:\Users\Abhinav\Portfolio'}</AddressInput>
       </AddressBar>
     </>
   )
