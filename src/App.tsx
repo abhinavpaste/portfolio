@@ -26,7 +26,7 @@ const AppContent = () => {
 
   if (booting) return <Boot onComplete={() => setBooting(false)} />
 
-  // ADD THIS — mobile gets its own layout
+
 
 
   const handlePortfolioOpen = (tab?: string) => {
@@ -55,45 +55,45 @@ const AppContent = () => {
     </>
   )
   return (
-    <div className="app-root" style={{ width: '100vw', height: '100vh', overflow: 'hidden' }}>
+  <div className="app-root">
     <Desktop
       onPortfolioOpen={handlePortfolioOpen}
       onLinksOpen={() => openWindow('links')}
       onClockOpen={() => openWindow('clock')}
     />
     <ClockWindow />
-      {portfolio?.isOpen && (
-        <Window
-          title="Portfolio.exe"
-          width={830}
-          height="480px"
-          defaultPosition={{ x: 300, y: 50 }}
-          isMinimized={portfolio.isMinimized}
-          onClose={() => closeWindow('portfolio')}
-          onMinimize={() => minimizeWindow('portfolio')}
-          toolbar={portfolioToolbar}
-          statusBar={portfolioStatusBar}
-        >
-          <MainWindow ref={mainWindowRef} />
-        </Window>
-      )}
-      {detailWindows.filter(w => w.isOpen).map(w => (
-        <Window
-          key={w.id}
-          title={w.title}
-          width={500}
-          height="550px"
-          isMinimized={w.isMinimized}
-          onClose={() => closeWindow(w.id)}
-          onMinimize={() => minimizeWindow(w.id)}
-        >
-          <ProjectDetail projectId={w.id.replace('details-', '')} />
-        </Window>
-      ))}
-      <LinksWindow />
-      <Taskbar onOpenPortfolio={(tab) => handlePortfolioOpen(tab)} />
-    </div>
-  )
+    {portfolio?.isOpen && (
+      <Window
+        title="Portfolio.exe"
+        width={830}
+        height="480px"
+        defaultPosition={{ x: 300, y: 50 }}
+        isMinimized={portfolio.isMinimized}
+        onClose={() => closeWindow('portfolio')}
+        onMinimize={() => minimizeWindow('portfolio')}
+        toolbar={portfolioToolbar}
+        statusBar={portfolioStatusBar}
+      >
+        <MainWindow ref={mainWindowRef} />
+      </Window>
+    )}
+    {detailWindows.filter(w => w.isOpen).map(w => (
+      <Window
+        key={w.id}
+        title={w.title}
+        width={500}
+        height="550px"
+        isMinimized={w.isMinimized}
+        onClose={() => closeWindow(w.id)}
+        onMinimize={() => minimizeWindow(w.id)}
+      >
+        <ProjectDetail projectId={w.id.replace('details-', '')} />
+      </Window>
+    ))}
+    <LinksWindow />
+    <Taskbar onOpenPortfolio={(tab) => handlePortfolioOpen(tab)} />
+  </div>
+)
 }
 
 function App() {
