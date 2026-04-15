@@ -14,6 +14,15 @@ export const WindowWrapper = styled.div<{ x: number; y: number; width: number; h
   flex-direction: column;
   z-index: 100;
   user-select: none;
+
+  @media (max-width: 768px) {
+    left: 8px;
+    top: 8px;
+    width: calc(100vw - 16px);
+    height: calc(100vh - 44px);
+    max-width: calc(100vw - 16px);
+    max-height: calc(100vh - 44px);
+  }
 `
 export const TitleBar = styled.div<{ isActive: boolean }>`
   background: ${({ isActive }) => isActive 
