@@ -52,6 +52,8 @@ const Window = ({
   const dragOffset = useRef({ x: 0, y: 0 })
 
   const handleMouseDown = (e: React.MouseEvent) => {
+    if (window.innerWidth <= 768) return
+
     isDragging.current = true
     dragOffset.current = {
       x: e.clientX - position.x,

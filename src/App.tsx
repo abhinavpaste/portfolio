@@ -1,4 +1,4 @@
-import { useRef, useState, useEffect } from 'react'  // add useEffect
+import { useRef, useState, useEffect } from 'react'
 import Desktop from './components/Desktop/Desktop'
 import Taskbar from './components/Taskbar/Taskbar'
 import Window from './components/Window/Window'
@@ -12,6 +12,7 @@ import LinksWindow from './components/LinksWindow/LinksWindow'
 import ProjectDetail from './components/ProjectDetail/ProjectDetail'
 import Boot from './components/Boot/Boot'
 
+const MOBILE_BREAKPOINT = 768
 
 const AppContent = () => {
   const { windows, closeWindow, minimizeWindow, openWindow } = useWindowStore()
@@ -20,14 +21,15 @@ const AppContent = () => {
   const playSound = useSound(0.3)
   const mainWindowRef = useRef<MainWindowRef>(null)
   const [booting, setBooting] = useState(true)
+  const [isMobile, setIsMobile] = useState(() => window.innerWidth <= MOBILE_BREAKPOINT)
 
- 
-  
+  useEffect(() => {
+    const handleResize = () => setIsMobile(window.innerWidth <= MOBILE_BREAKPOINT)
+    window.addEventListener('resize', handleResize)
+    return () => window.removeEventListener('resize', handleResize)
+  }, [])
 
   if (booting) return <Boot onComplete={() => setBooting(false)} />
-
-
-
 
   const handlePortfolioOpen = (tab?: string) => {
     openWindow('portfolio')
@@ -35,6 +37,7 @@ const AppContent = () => {
       setTimeout(() => mainWindowRef.current?.setTab(tab), 50)
     }
   }
+
   const portfolioToolbar = (
     <>
       <ToolbarButton onClick={() => mainWindowRef.current?.goBack()}>← Back</ToolbarButton>
@@ -48,52 +51,69 @@ const AppContent = () => {
       </AddressBar>
     </>
   )
+
   const portfolioStatusBar = (
     <>
       <StatusPanel>{projects.length} object(s)</StatusPanel>
       <StatusPanel>Last modified: 2026</StatusPanel>
     </>
   )
+
   return (
-  <div className="app-root">
-    <Desktop
-      onPortfolioOpen={handlePortfolioOpen}
-      onLinksOpen={() => openWindow('links')}
-      onClockOpen={() => openWindow('clock')}
-    />
-    <ClockWindow />
-    {portfolio?.isOpen && (
-      <Window
-        title="Portfolio.exe"
-        width={830}
-        height="480px"
-        defaultPosition={{ x: 300, y: 50 }}
-        isMinimized={portfolio.isMinimized}
-        onClose={() => closeWindow('portfolio')}
-        onMinimize={() => minimizeWindow('portfolio')}
-        toolbar={portfolioToolbar}
-        statusBar={portfolioStatusBar}
-      >
-        <MainWindow ref={mainWindowRef} />
-      </Window>
-    )}
-    {detailWindows.filter(w => w.isOpen).map(w => (
-      <Window
-        key={w.id}
-        title={w.title}
-        width={500}
-        height="550px"
-        isMinimized={w.isMinimized}
-        onClose={() => closeWindow(w.id)}
-        onMinimize={() => minimizeWindow(w.id)}
-      >
-        <ProjectDetail projectId={w.id.replace('details-', '')} />
-      </Window>
-    ))}
-    <LinksWindow />
-    <Taskbar onOpenPortfolio={(tab) => handlePortfolioOpen(tab)} />
-  </div>
-)
+    <div className={`app-root ${isMobile ? 'app-root--mobile' : ''}`}>
+      {!isMobile && (
+        <Desktop
+          onPortfolioOpen={handlePortfolioOpen}
+          onLinksOpen={() => openWindow('links')}
+          onClockOpen={() => openWindow('clock')}
+        />
+      )}
+
+      <ClockWindow />
+
+      {portfolio?.isOpen && (
+        <Window
+          title="Portfolio.exe"
+          width={830}
+          height="480px"
+          defaultPosition={{ x: 300, y: 50 }}
+          isMinimized={portfolio.isMinimized}
+          onClose={() => closeWindow('portfolio')}
+          onMinimize={() => minimizeWindow('portfolio')}
+          toolbar={portfolioToolbar}
+          statusBar={portfolioStatusBar}
+        >
+          <MainWindow ref={mainWindowRef} />
+        </Window>
+      )}
+
+      {detailWindows.filter(w => w.isOpen).map(w => (
+        <Window
+          key={w.id}
+          title={w.title}
+          width={500}
+          height="550px"
+          isMinimized={w.isMinimized}
+          onClose={() => closeWindow(w.id)}
+          onMinimize={() => minimizeWindow(w.id)}
+        >
+          <ProjectDetail projectId={w.id.replace('details-', '')} />
+        </Window>
+      ))}
+
+      <LinksWindow />
+
+      {isMobile && (
+        <Desktop
+          onPortfolioOpen={handlePortfolioOpen}
+          onLinksOpen={() => openWindow('links')}
+          onClockOpen={() => openWindow('clock')}
+        />
+      )}
+
+      <Taskbar onOpenPortfolio={(tab) => handlePortfolioOpen(tab)} />
+    </div>
+  )
 }
 
 function App() {
@@ -103,4 +123,5 @@ function App() {
     </WindowProvider>
   )
 }
+
 export default App
