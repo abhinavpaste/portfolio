@@ -16,13 +16,12 @@ export const WindowWrapper = styled.div<{ x: number; y: number; width: number; h
   user-select: none;
 
   @media (max-width: 768px) {
-    position: relative;
-    left: auto;
-    top: auto;
-    width: 100%;
-    height: auto;
-    max-width: 100%;
-    max-height: none;
+    left: 8px;
+    top: 8px;
+    width: calc(100vw - 16px);
+    height: calc(100vh - 44px);
+    max-width: calc(100vw - 16px);
+    max-height: calc(100vh - 44px);
   }
 `
 export const TitleBar = styled.div<{ isActive: boolean }>`
