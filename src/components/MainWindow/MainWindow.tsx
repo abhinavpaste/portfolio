@@ -74,7 +74,7 @@ useImperativeHandle(ref, () => ({
       case 'Projects': return <ProjectsTab onOpenDetails={handleOpenDetails} />
       case 'Contact': return <ContactTab />
       default: return (
-        <div style={{ fontFamily: 'Tahoma', fontSize: '11px' }}>Coming soon...</div>
+        <div style={{ fontFamily: 'Tahoma', fontSize: '11px' }}>Coming  Soon...</div>
       )
     }
   }
