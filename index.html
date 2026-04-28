@@ -299,6 +299,12 @@ object PartitionExample {
     result.collect().foreach(println)
 
     spark.stop()
+
+
+
+
+
+
   }
 }
 
@@ -306,6 +312,54 @@ Run:
 
 spark-submit PartitionExample.scala
 
+    9 and 10 :
+    java -version
+1 If it shows Java 11 or higher that's the problem.
+Install Java 8:
+
+sudo apt install openjdk-8-jdk
+
+Switch to Java 8:
+sudo update-alternatives --config java
+sudo update-alternatives --config javac
+
+mkdir TweetMining
+cd TweetMining
+mkdir -p src/main/scala
+
+
+9th prog build.sbt file:
+name: "TweetMining"
+version : "1.0"
+scalaVersion := "2.11.12"
+libraryDependencies ++= Seq(
+)
+"org.apache.spark" %% "spark-core" % "2.4.8",
+"org.scala-lang.modules" %% "scala-parser-combinators" % "1.1.2"
+name:= "TweetMining"
+version : "1.0"
+scalaVersion := "2.11.12"
+library Dependencies += "org.apache.spark" %% "spark-core" % "2.4.8"
+
+10th prog sbt:
+
+name: "SparkStreamingWordCount"
+version : "1.0"
+scalaversion := "2.12.18"
+libraryDependencies ++= Seq(
+"org.apache.spark" %% "spark-core" % "3.5.1", "org.apache.spark" %% "spark-streaming" % "3.5.1")
+
+
+Execution Flow
+Terminal 1:
+Inc -lk 9999
+Terminal 2:
+just run sbt run in termianl 2.
+cd SparkStreaming WordCount
+sbt package
+spark-submit\
+--class NetworkWordCount \
+--master local[*] \
     <div id="root"></div>
     <script type="module" src="/src/main.tsx"></script>
   </body>
