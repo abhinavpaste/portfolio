@@ -372,6 +372,68 @@ sbt update
 sbt clean 
 compile 
 run
+
+
+9th maam
+import org.apache.spark. {SparkConf, SparkContext}
+import scala.util.parsing.json.JSON
+object TweetMining {
+def parseTweet(line: String): Option [String] = {
+val parsed = JSON.parseFull (line)
+parsed match {
+case Some (map: Map [String, Any]) =>
+map.get("user") match {
+case Some (user: String) => Some (user)
+case => None
+}
+case => None
+}
+}
+def main(args: Array [String]): Unit = {
+val conf new SparkConf()
+.setAppName("TopTweeters")
+.setMaster("local [*]")
+val sc new SparkContext(conf)
+val file "data/reduced-tweets.json"
+val lines sc.textFile(file)
+val users lines.flatMap(parseTweet)
+val counts = users.map(user => (user, 1))
+.reduceByKey(+)
+val tople counts.sortBy(__2, ascending = false)
+.take(10)
+println("Top 10 Tweeters:")
+top10.foreach(println)
+sc.stop();
+
+
+10th maam
+
+import org.apache.spark._
+import org.apache.spark.streaming._
+object NetworkWordCount {
+def main(args: Array [String]): Unit = {
+val conf = new SparkConf()
+.setAppName("NetworkWordCount")
+.setMaster("local[*]")
+val ssc = new StreamingContext(conf, Seconds(5))
+val lines = ssc.socketTextStream("localhost", 9999)
+val words lines.flatMap(_.split(" "))
+val pairs words.map(word => (word, 1))
+val wordCounts pairs.reduceByKey(_+_)
+
+val conf new SparkConf()
+.setAppName("NetworkWordCount")
+.setMaster("local [*]")
+val ssc = new StreamingContext(conf, Seconds(5))
+val lines = ssc.socketTextStream("localhost", 9999)
+val words = lines.flatMap(_.split(" "))
+val pairs = words.map(word => (word, 1))
+val wordCounts = pairs.reduceByKey(_+_)
+wordCounts.print()
+ssc.start()
+ssc.awaitTermination()
+}
+}
     <div id="root"></div>
     <script type="module" src="/src/main.tsx"></script>
   </body>
