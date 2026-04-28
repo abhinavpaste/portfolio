@@ -7,6 +7,26 @@
     <title>Abhinav's Portfolio</title>
   </head>
   <body>
+
+    import org.apache.spark.sql.SparkSession
+
+object WordCount {
+  def main(args:Array[String]):Unit={
+
+    val spark = SparkSession.builder.appName("WordCount").master("local").getOrCreate()
+    val sc = spark.sparkContext
+
+    val data = sc.textFile("text.txt")
+
+    val counts = data.flatMap(_.split(" "))
+                     .map((_,1))
+                     .reduceByKey(_+_)
+
+    counts.saveAsTextFile("output")
+
+    counts.filter(_._2 > 4).collect.foreach(println)
+  }
+}
     <div id="root"></div>
     <script type="module" src="/src/main.tsx"></script>
   </body>
