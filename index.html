@@ -7,8 +7,101 @@
     <title>Abhinav's Portfolio</title>
   </head>
   <body>
+      1. Bubble Sort in Scala
+object BubbleSort {
+  def main(args: Array[String]): Unit = {
+    var arr = Array(5, 2, 9, 1, 6)
 
-    import org.apache.spark.sql.SparkSession
+    for(i <- 0 until arr.length-1){
+      for(j <- 0 until arr.length-i-1){
+        if(arr(j) > arr(j+1)){
+          val temp = arr(j)
+          arr(j) = arr(j+1)
+          arr(j+1) = temp
+        }
+      }
+    }
+
+    println("Sorted Array:")
+    arr.foreach(println)
+  }
+}
+2. Length of Each Word from Array
+object WordLength {
+  def main(args: Array[String]): Unit = {
+    val words = Array("Scala","Spark","Java","Python")
+
+    words.foreach(word => println(word + " = " + word.length))
+  }
+}
+3. Number of Books Published by Each Author
+object Books {
+  def main(args: Array[String]): Unit = {
+
+    val books = List(
+      ("Dr. Seuss","How the Grinch Stole Christmas!"),
+      ("Jon Stone","Monsters at the End of This Book"),
+      ("Dr. Seuss","The Lorax"),
+      ("Jon Stone","Big Bird in China"),
+      ("Dr. Seuss","One Fish Two Fish")
+    )
+
+    val result = books.groupBy(_._1).mapValues(_.size)
+
+    result.foreach(println)
+  }
+}
+4. Items Collection
+object Items {
+  def main(args: Array[String]): Unit = {
+
+    var items = Map("Pen"->20,"Pencil"->10,"Erasor"->7,"Book"->25,"Sheet"->15)
+
+    items.foreach(println)
+
+    println("Total Quantity = " + items.values.sum)
+    println("Total Items = " + items.size)
+
+    items = items.updated("Book", items("Book")+3)
+
+    items += ("Board"->15)
+
+    println(items)
+  }
+}
+5. Search Element in List
+object SearchElement {
+  def Search(list: List[Int], num: Int): Boolean = {
+    list.contains(num)
+  }
+
+  def main(args: Array[String]): Unit = {
+    val list = List(10,20,30,40)
+
+    println(Search(list,30))
+    println(Search(list,50))
+  }
+}
+6. Butter Bun Egg Collection
+object FoodItems {
+  def main(args: Array[String]): Unit = {
+
+    var items = Map("Butter"->20,"Bun"->10,"Egg"->7,"Biscuit"->25,"Bread"->15)
+
+    items.foreach(println)
+
+    println("Total Quantity = " + items.values.sum)
+    println("Total Items = " + items.size)
+
+    items = items.updated("Bun", items("Bun")+3)
+
+    items += ("Cheese"->12)
+
+    println(items)
+  }
+}
+7. Spark Word Count and Save Result
+import org.apache.spark.sql.SparkSession
 
 object WordCount {
   def main(args:Array[String]):Unit={
@@ -27,6 +120,98 @@ object WordCount {
     counts.filter(_._2 > 4).collect.foreach(println)
   }
 }
+8. Pair RDD Word Count
+val data = sc.textFile("text.txt")
+
+val result = data.flatMap(_.split(" "))
+                 .map(word => (word,1))
+                 .reduceByKey(_+_)
+
+result.collect.foreach(println)
+9. Top 10 Tweeters
+val data = sc.textFile("reduced-tweets.json")
+
+val users = data.map(line => line.split(",")(1))
+                .map(user => (user,1))
+                .reduceByKey(_+_)
+                .sortBy(_._2,false)
+
+users.take(10).foreach(println)
+10. Spark Streaming Word Count
+import org.apache.spark.streaming._
+import org.apache.spark.SparkConf
+
+val conf = new SparkConf().setAppName("Streaming").setMaster("local[2]")
+val ssc = new StreamingContext(conf, Seconds(5))
+
+val lines = ssc.socketTextStream("localhost",9999)
+
+val words = lines.flatMap(_.split(" "))
+val pairs = words.map((_,1))
+val counts = pairs.reduceByKey(_+_)
+
+counts.print()
+
+ssc.start()
+ssc.awaitTermination()
+11. RDD with 3 Partitions
+val data = List(11,34,45,67,3,4,90)
+
+val rdd = sc.parallelize(data,3)
+
+rdd.mapPartitionsWithIndex((index,iter)=>
+Array((index,iter.map(_+1).toArray)).iterator
+).collect.foreach(println)
+12. Item Object Partitions
+val item = Map("Ball"->10,"Ribbon"->50,"Box"->20,"Pen"->5,"Book"->8,"Dairy"->4,"Pin"->20)
+
+val rdd = sc.parallelize(item.toSeq)
+
+println(rdd.getNumPartitions)
+
+rdd.collect.foreach(println)
+
+rdd.glom.collect.foreach(arr => println(arr.toList))
+13. Same as Question 12
+val rdd = sc.parallelize(item.toSeq,3)
+
+println(rdd.getNumPartitions)
+
+rdd.collect.foreach(println)
+
+rdd.glom.collect.foreach(println)
+14. words.txt Operations
+val data = sc.textFile("words.txt")
+
+val words = data.flatMap(_.split(" "))
+
+val counts = words.map((_,1)).reduceByKey(_+_)
+
+counts.collect.foreach(println)
+
+counts.sortByKey(true).collect.foreach(println)
+
+counts.filter(x => x._1.startsWith("s")).collect.foreach(println)
+15. Spark Streaming Hashtag Counter
+import org.apache.spark.streaming._
+import org.apache.spark.SparkConf
+
+val conf = new SparkConf().setAppName("Hashtag").setMaster("local[2]")
+val ssc = new StreamingContext(conf, Seconds(5))
+
+val lines = ssc.socketTextStream("localhost",9999)
+
+val hashtags = lines.flatMap(_.split(" "))
+                    .filter(_.startsWith("#"))
+
+val pairs = hashtags.map((_,1))
+
+val counts = pairs.reduceByKey(_+_)
+
+counts.print()
+
+ssc.start()
+ssc.awaitTermination()
     <div id="root"></div>
     <script type="module" src="/src/main.tsx"></script>
   </body>
