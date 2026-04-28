@@ -212,6 +212,42 @@ counts.print()
 
 ssc.start()
 ssc.awaitTermination()
+
+
+
+for p7 and p8
+p7::
+import org.apache.spark.sql.SparkSession
+
+object RDDExample {
+  def main(args: Array[String]): Unit = {
+
+    val spark = SparkSession.builder
+      .appName("RDD Example")
+      .master("local[*]")
+      .getOrCreate()
+
+    val sc = spark.sparkContext
+
+    val data = sc.textFile("text.txt")
+
+    val result = data.flatMap(_.split(" "))
+                     .map(word => (word,1))
+                     .reduceByKey(_+_)
+
+    result.collect().foreach(println)
+
+    spark.stop()
+  }
+}
+how to run:
+scalac RDDExample.scala
+jar cvf RDDExample.jar *.class
+spark-submit --class RDDExample RDDExample.jar
+
+p7: above given
+
+
     <div id="root"></div>
     <script type="module" src="/src/main.tsx"></script>
   </body>
