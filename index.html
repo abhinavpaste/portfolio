@@ -245,8 +245,66 @@ scalac RDDExample.scala
 jar cvf RDDExample.jar *.class
 spark-submit --class RDDExample RDDExample.jar
 
+
+Method 1: Run using Spark Shell (recommended)
+Step 1: Open Spark Shell
+spark-shell
+
+This gives you a Scala environment with sc (SparkContext) already available.
+
+Step 2: Run your code line by line
+val data = sc.textFile("text.txt")
+
+val result = data.flatMap(_.split(" "))
+                 .map(word => (word,1))
+                 .reduceByKey(_+_)
+
+result.collect().foreach(println)
+Step 3: Ensure input file exists
+
+Place text.txt in the same directory where you started spark-shell
+or use full path:
+
+sc.textFile("/home/yourname/text.txt")
+
 p7: above given
 
+rdd programs:
+M1 : run spark-shell , make sure text file in same directory or provide full path, then run code line by line
+M2 : create scala file with code, compile and create jar, then run using spark-submit
+Option 2: Scala File
+
+Create a file PartitionExample.scala
+
+import org.apache.spark.sql.SparkSession
+
+object PartitionExample {
+  def main(args: Array[String]): Unit = {
+
+    val spark = SparkSession.builder()
+      .appName("Partition Example")
+      .master("local[*]")
+      .getOrCreate()
+
+    val sc = spark.sparkContext
+
+    val data = List(11,34,45,67,3,4,90)
+
+    val rdd = sc.parallelize(data,3)
+
+    val result = rdd.mapPartitionsWithIndex((index,iter)=>
+      Array((index,iter.map(_+1).toArray)).iterator
+    )
+
+    result.collect().foreach(println)
+
+    spark.stop()
+  }
+}
+
+Run:
+
+spark-submit PartitionExample.scala
 
     <div id="root"></div>
     <script type="module" src="/src/main.tsx"></script>
