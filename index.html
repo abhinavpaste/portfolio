@@ -7,6 +7,279 @@
     <title>Abhinav's Portfolio</title>
   </head>
   <body>
+ #6th dfs : 
+
+    class Graph:
+    def __init__(self):
+        self.graph = {}
+
+    def add_edge(self, u, v):
+        if u not in self.graph:
+            self.graph[u] = []
+        self.graph[u].append(v)
+
+    # Depth-Limited Search (DLS)
+    def dls(self, node, target, depth, visited):
+        if node == target:
+            return True
+        if depth <= 0:
+            return False
+
+        visited.add(node)
+
+        for neighbor in self.graph.get(node, []):
+            if neighbor not in visited:
+                if self.dls(neighbor, target, depth - 1, visited):
+                    return True
+        return False
+
+    # Iterative Deepening DFS (IDDFS)
+    def iddfs(self, start, target, max_depth):
+        for depth in range(max_depth + 1):
+            visited = set()
+            if self.dls(start, target, depth, visited):
+                print(f"Found at depth: {depth}")
+                return True
+        return False
+
+
+# ----------- Testing ------------
+g = Graph()
+
+# Example graph (with cycle)
+g.add_edge(0, 1)
+g.add_edge(0, 2)
+g.add_edge(1, 3)
+g.add_edge(2, 4)
+g.add_edge(4, 5)
+g.add_edge(5, 2)  # cycle
+
+start = 0
+target = 5
+max_depth = 5
+
+if g.iddfs(start, target, max_depth):
+    print("Target found!")
+else:
+    print("Target not found!")
+
+
+
+#7th Mc-callaughin pit:
+class McCullochPittsNeuron: 
+    def __init__(self, weights, threshold): 
+        """ 
+        Initialize the neuron with given weights and threshold. 
+        :param weights: List of weights for the inputs. 
+        :param threshold: Threshold value for neuron activation. 
+        """ 
+        self.weights = weights 
+        self.threshold = threshold 
+ 
+    def activate(self, inputs): 
+        """ 
+        Compute the output of the neuron for the given inputs. 
+        :param inputs: List of binary inputs (0 or 1). 
+        :return: Output of the neuron (0 or 1). 
+        """ 
+        # Compute the weighted sum 
+        weighted_sum = sum(w * i for w, i in zip(self.weights, inputs)) 
+        # Activation based on threshold 
+        return 1 if weighted_sum >= self.threshold else 0 
+ 
+def AND_function(x1, x2): 
+    # AND gate using McCulloch-Pitts model 
+    weights = [1, 1] # Weights for inputs 
+    threshold = 2 # Threshold value for AND 
+    neuron = McCullochPittsNeuron(weights, threshold) 
+    return neuron.activate([x1, x2]) 
+ 
+def OR_function(x1, x2): 
+    # OR gate using McCulloch-Pitts model 
+    weights = [1, 1] # Weights for inputs 
+    threshold = 1 # Threshold value for OR 
+    neuron = McCullochPittsNeuron(weights, threshold) 
+    return neuron.activate([x1, x2]) 
+ 
+def XOR_function(x1, x2): 
+    # XOR cannot be implemented with a single-layer McCulloch-Pitts model, 
+    # so we'll use a multi-layer approach (two neurons) 
+ 
+    # First layer (OR and NAND) 
+    or_neuron = McCullochPittsNeuron([1, 1], 1) # OR 
+    nand_neuron = McCullochPittsNeuron([-2, -2], -1) # NAND 
+    # Second layer (AND) 
+    and_neuron = McCullochPittsNeuron([1, 1], 2) # AND 
+ 
+    # Compute the outputs from the first layer 
+    or_output = or_neuron.activate([x1, x2]) 
+    nand_output = nand_neuron.activate([x1, x2]) 
+ 
+    # Second layer to get final XOR output 
+    return and_neuron.activate([or_output, nand_output]) 
+ 
+def AND_NOT_function(x1, x2): 
+    # AND-NOT gate using McCulloch-Pitts model (x1 AND NOT x2) 
+    weights = [1, -1] # Weights for inputs 
+    threshold = 1 # Threshold value for AND-NOT 
+    neuron = McCullochPittsNeuron(weights, threshold) 
+    return neuron.activate([x1, x2]) 
+ 
+# Test cases 
+print("AND Function:") 
+print(f"AND(0, 0) = {AND_function(0, 0)}") 
+print(f"AND(0, 1) = {AND_function(0, 1)}") 
+print(f"AND(1, 0) = {AND_function(1, 0)}") 
+print(f"AND(1, 1) = {AND_function(1, 1)}\n") 
+ 
+print("OR Function:") 
+print(f"OR(0, 0) = {OR_function(0, 0)}") 
+print(f"OR(0, 1) = {OR_function(0, 1)}") 
+print(f"OR(1, 0) = {OR_function(1, 0)}") 
+print(f"OR(1, 1) = {OR_function(1, 1)}\n") 
+ 
+print("XOR Function:") 
+print(f"XOR(0, 0) = {XOR_function(0, 0)}") 
+print(f"XOR(0, 1) = {XOR_function(0, 1)}") 
+print(f"XOR(1, 0) = {XOR_function(1, 0)}") 
+print(f"XOR(1, 1) = {XOR_function(1, 1)}\n") 
+ 
+print("AND-NOT Function:") 
+print(f"AND-NOT(0, 0) = {AND_NOT_function(0, 0)}") 
+print(f"AND-NOT(0, 1) = {AND_NOT_function(0, 1)}") 
+print(f"AND-NOT(1, 0) = {AND_NOT_function(1, 0)}") 
+print(f"AND-NOT(1, 1) = {AND_NOT_function(1, 1)}")
+
+
+#8th Perceptron learning algorithm:
+import numpy as np 
+# Input and output for AND gate 
+x = np.array([[0, 0], [0, 1], [1, 0], [1, 1]]) # Input 
+y = np.array([0, 0, 0, 1]) # Output (target) with table 
+# Initialize weights, bias, learning rate, and iteration counters 
+weights = np.array([0, 0], dtype=float) # Initial weights, explicitly set to float 
+bias = 0.0 # Initial bias, explicitly set to float 
+learning_rate = 0.1 # Learning rate 
+iterations = 0 
+max_iterations = 100 # Maximum number of iterations 
+ 
+# Perceptron training function 
+def perceptron(x, y, weights, bias, learning_rate, max_iterations): 
+    global iterations 
+    while iterations < max_iterations: 
+        error_count = 0 
+        for i in range(len(x)): 
+            # Calculate activation 
+            activation = np.dot(x[i], weights) + bias 
+            # Determine output 
+            output = 1 if activation >= 0 else 0 
+            # Update weights and bias if there's an error 
+            if output != y[i]: 
+                error_count += 1 
+                weights += learning_rate * (y[i] - output) * x[i] 
+                bias += learning_rate * (y[i] - output) 
+        iterations += 1 
+        # Stop if there are no errors 
+        if error_count == 0: 
+            break 
+    return weights, bias, iterations 
+ 
+# Train the perceptron 
+weights, bias, iterations = perceptron(x, y, weights, bias, learning_rate, 
+max_iterations) 
+ 
+# Print the final weights, bias, and number of iterations 
+print("Final weights:", weights) 
+print("Final bias:", bias) 
+print("Number of iterations to converge:", iterations) 
+ 
+# Test the perceptron 
+def test_perceptron(x, weights, bias): 
+    predictions = [] 
+    for i in range(len(x)): 
+        # Calculate activation 
+        activation = np.dot(x[i], weights) + bias 
+        # Determine output 
+        output = 1 if activation >= 0 else 0 
+        predictions.append(output) 
+    return predictions 
+ 
+# Predict the output for the AND gate inputs 
+predictions = test_perceptron(x, weights, bias) 
+print("Predictions for the AND gate:", predictions)
+
+
+#9th SVM classifier:
+!pip install scikit-learn 
+ 
+import pandas as pd 
+from sklearn.feature_extraction.text import TfidfVectorizer 
+from sklearn.svm import SVC 
+from sklearn.model_selection import train_test_split 
+from sklearn.metrics import accuracy_score 
+ 
+# Create dataset 
+data = pd.DataFrame({ 
+    'tweet': [ 
+        "I love this product", 
+        "This is worst experience", 
+        "Very happy with service", 
+        "I hate this", 
+        "Awesome and amazing", 
+        "Bad quality" 
+    ], 
+    'label': ['positive','negative','positive','negative','positive','negative'] 
+}) 
+ 
+# Features and labels 
+X = data['tweet'] 
+y = data['label'] 
+ 
+# Convert text → numbers 
+vectorizer = TfidfVectorizer() 
+X_vector = vectorizer.fit_transform(X) 
+ 
+# Split data 
+X_train, X_test, y_train, y_test = train_test_split(X_vector, y, test_size=0.2, random_state=42) 
+ 
+# Train SVM 
+model = SVC(kernel='linear') 
+model.fit(X_train, y_train) 
+ 
+# Predict 
+y_pred = model.predict(X_test) 
+ 
+print("Accuracy:", accuracy_score(y_test, y_pred)) 
+ 
+# Test with new tweet 
+sample = vectorizer.transform(["I really love this"]) 
+print("Prediction:", model.predict(sample))
+
+
+#10th K means clustering:
+!pip install scikit-learn matplotlib 
+import pandas as pd 
+from sklearn.cluster import KMeans 
+import matplotlib.pyplot as plt 
+# Create dataset 
+data = pd.DataFrame({ 
+'Annual_Income': [40000,50000,20000,80000,90000,30000,100000,25000], 
+'Spending_Score': [60,65,30,80,85,40,90,35] 
+}) 
+X = data[['Annual_Income','Spending_Score']] 
+# Apply KMeans 
+kmeans = KMeans(n_clusters=3, random_state=42) 
+kmeans.fit(X) 
+# Add cluster labels 
+data['Cluster'] = kmeans.labels_ 
+print(data) 
+# Plot 
+plt.scatter(X['Annual_Income'], X['Spending_Score'], c=kmeans.labels_) 
+plt.xlabel("Income") 
+plt.ylabel("Spending Score") 
+plt.title("Customer Segmentation") 
+plt.show()
+
     <div id="root"></div>
     <script type="module" src="/src/main.tsx"></script>
   </body>
