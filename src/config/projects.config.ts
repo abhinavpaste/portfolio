@@ -34,7 +34,7 @@ export const projects: Project[] = [
   {
     id: 'navsh',
     title: 'navsh — POSIX Shell for Linux',
-    shortDesc: 'Built a POSIX-compliant Unix shell from scratch in C using low-level system calls — fork, execvp, waitpid, pipe, dup2, and sigaction. Implemented foreground/background job control with terminal ownership via tcsetpgrp, correct signal propagation to child processes, and zombie process prevention via SIGCHLD.',
+    shortDesc: 'Built a POSIX-compliant Unix shell from scratch in C using low-level system calls - fork, execvp, waitpid, pipe, dup2, and sigaction. Implemented foreground/background job control with terminal ownership via tcsetpgrp, correct signal propagation to child processes, and zombie process prevention via SIGCHLD.',
     techStack: ['C', 'POSIX', 'Linux'],
     githubUrl: 'https://github.com/abhinavpaste/c-shell',
     overview: 'Built a POSIX-compliant Unix shell from scratch in C using low-level system calls — fork, execvp, waitpid, pipe, dup2, and sigaction. Implements foreground/background job control.',
