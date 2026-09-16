@@ -9,5 +9,568 @@
   <body>
     <div id="root"></div>
     <script type="module" src="/src/main.tsx"></script>
+1a MATRIX MULTIPLICATION
+    #include <stdio.h>
+#include <stdlib.h>
+#include <omp.h>
+
+int main() {
+    int n = 2000;
+    double **matrix, *vector, *result;
+    int i, j;
+
+    matrix = (double **)malloc(n * sizeof(double *));
+    for (i = 0; i < n; i++) {
+        matrix[i] = (double *)malloc(n * sizeof(double));
+    }
+    vector = (double *)malloc(n * sizeof(double));
+    result = (double *)malloc(n * sizeof(double));
+
+    for (i = 0; i < n; i++) {
+        vector[i] = 1.0;
+        for (j = 0; j < n; j++) {
+            matrix[i][j] = 1.0;
+        }
+    }
+
+    double start = omp_get_wtime();
+    for (i = 0; i < n; i++) {
+        double sum = 0.0;
+        for (j = 0; j < n; j++) {
+            sum += matrix[i][j] * vector[j];
+        }
+        result[i] = sum;
+    }
+    double end = omp_get_wtime();
+    printf("Sequential Time: %f seconds\n", end - start);
+
+    start = omp_get_wtime();
+    #pragma omp parallel for private(j) schedule(static)
+    for (i = 0; i < n; i++) {
+        double sum = 0.0;
+        for (j = 0; j < n; j++) {
+            sum += matrix[i][j] * vector[j];
+        }
+        result[i] = sum;
+    }
+    end = omp_get_wtime();
+    printf("Parallel Time:   %f seconds\n", end - start);
+
+    for (i = 0; i < n; i++) {
+        free(matrix[i]);
+    }
+    free(matrix);
+    free(vector);
+    free(result);
+
+    return 0;
+}
+
+1.b
+#include <stdio.h>
+#include <stdlib.h>
+#include <omp.h>
+
+int main() {
+    int n = 2000;
+    double **matrix, *vector, *result;
+    int i, j;
+
+    matrix = (double **)malloc(n * sizeof(double *));
+    for (i = 0; i < n; i++) {
+        matrix[i] = (double *)malloc(n * sizeof(double));
+    }
+    vector = (double *)malloc(n * sizeof(double));
+    result = (double *)malloc(n * sizeof(double));
+
+    for (i = 0; i < n; i++) {
+        vector[i] = 2.0;
+        for (j = 0; j < n; j++) {
+            matrix[i][j] = 2.0;
+        }
+    }
+
+    double start = omp_get_wtime();
+    for (i = 0; i < n; i++) {
+        double sum = 0.0;
+        for (j = 0; j < n; j++) {
+            sum += matrix[i][j] * vector[j];
+        }
+        result[i] = sum;
+    }
+    double end = omp_get_wtime();
+    printf("Sequential Time: %f seconds\n", end - start);
+
+    printf("Sequential result (first 10 values): ");
+    for (i = 0; i < 10; i++) {
+        printf("%0.2f ", result[i]);
+    }
+    printf("\n");
+
+    start = omp_get_wtime();
+    #pragma omp parallel for private(j) schedule(static)
+    for (i = 0; i < n; i++) {
+        double sum = 0.0;
+        for (j = 0; j < n; j++) {
+            sum += matrix[i][j] * vector[j];
+        }
+        result[i] = sum;
+    }
+    end = omp_get_wtime();
+    printf("Parallel Time:   %f seconds\n", end - start);
+
+    printf("Parallel result (first 10 values): ");
+    for (i = 0; i < 10; i++) {
+        printf("%0.2f ", result[i]);
+    }
+    printf("\n");
+
+    for (i = 0; i < n; i++) {
+        free(matrix[i]);
+    }
+    free(matrix);
+    free(vector);
+    free(result);
+
+    return 0;
+}
+
+
+2.a 
+#include <stdio.h>
+#include <omp.h>
+
+int main() {
+    int clothing[] = {500, 1000, 750};
+    int gaming[] = {1500, 2000};
+    int grocery[] = {100, 250, 300, 150};
+    int stationary[] = {50, 80, 40};
+
+    int n1 = 3, n2 = 2, n3 = 4, n4 = 3;
+    int total_seq = 0, total_par = 0;
+    double start, end, seq_time, par_time;
+
+    start = omp_get_wtime();
+    for (int i = 0; i < n1; i++) total_seq += clothing[i];
+    for (int i = 0; i < n2; i++) total_seq += gaming[i];
+    for (int i = 0; i < n3; i++) total_seq += grocery[i];
+    for (int i = 0; i < n4; i++) total_seq += stationary[i];
+    end = omp_get_wtime();
+    seq_time = end - start;
+
+    start = omp_get_wtime();
+    #pragma omp parallel sections reduction(+:total_par)
+    {
+        #pragma omp section
+        for (int i = 0; i < n1; i++) total_par += clothing[i];
+
+        #pragma omp section
+        for (int i = 0; i < n2; i++) total_par += gaming[i];
+
+        #pragma omp section
+        for (int i = 0; i < n3; i++) total_par += grocery[i];
+
+        #pragma omp section
+        for (int i = 0; i < n4; i++) total_par += stationary[i];
+    }
+    end = omp_get_wtime();
+    par_time = end - start;
+
+    printf("Sequential Total: %d, Time: %lf sec\n", total_seq, seq_time);
+    printf("Parallel Total:   %d, Time: %lf sec\n", total_par, par_time);
+    printf("Speedup:          %lf\n", seq_time / par_time);
+
+    return 0;
+}
+2.b
+#include <stdio.h>
+#include <omp.h>
+
+int main() {
+    int clothing[] = {500, 700, 800, 600};
+    int gaming[] = {2000, 1500, 3000};
+    int grocery[] = {200, 300, 150, 100, 50};
+    int stationary[] = {50, 100, 150};
+
+    int total = 0;
+    double start, end;
+
+    start = omp_get_wtime();
+
+    #pragma omp parallel for reduction(+:total)
+    for (int section = 0; section < 4; section++) {
+        int sum = 0;
+        if (section == 0) {
+            for (int i = 0; i < 4; i++) sum += clothing[i];
+        } else if (section == 1) {
+            for (int i = 0; i < 3; i++) sum += gaming[i];
+        } else if (section == 2) {
+            for (int i = 0; i < 5; i++) sum += grocery[i];
+        } else if (section == 3) {
+            for (int i = 0; i < 3; i++) sum += stationary[i];
+        }
+        total += sum;
+    }
+
+    end = omp_get_wtime();
+
+    printf("Final Bill Amount = %d\n", total);
+    printf("Time Taken = %f seconds\n", end - start);
+
+    return 0;
+}
+
+3a
+#include <stdio.h>
+#include <omp.h>
+
+int main() {
+    long num_steps = 1000000000;
+    double step, x, sum = 0.0;
+    double start_time, end_time;
+
+    step = 1.0 / (double)num_steps;
+
+    start_time = omp_get_wtime();
+
+    #pragma omp parallel for private(x) reduction(+:sum)
+    for (long i = 0; i < num_steps; i++) {
+        x = (i + 0.5) * step;
+        sum += 4.0 / (1.0 + x * x);
+    }
+
+    double pi = step * sum;
+    end_time = omp_get_wtime();
+
+    printf("Approximated Pi = %.15f\n", pi);
+    printf("Time taken = %f seconds\n", end_time - start_time);
+
+    return 0;
+}
+3b
+#include <stdio.h>
+#include <omp.h>
+
+int main() {
+    long num_steps = 100000000;
+    double step = 1.0 / (double)num_steps;
+    double sum = 0.0;
+    double start_time, end_time;
+
+    start_time = omp_get_wtime();
+
+    #pragma omp parallel
+    {
+        double x, local_sum = 0.0;
+
+        #pragma omp for
+        for (long i = 0; i < num_steps; i++) {
+            x = (i + 0.5) * step;
+            local_sum += 4.0 / (1.0 + x * x);
+        }
+
+        #pragma omp atomic
+        sum += local_sum;
+    }
+
+    double pi = step * sum;
+    end_time = omp_get_wtime();
+
+    printf("Parallel PI = %.15f\n", pi);
+    printf("Time taken: %f seconds\n", end_time - start_time);
+
+    return 0;
+}
+3c
+#include <stdio.h>
+#include <omp.h>
+
+static long num_steps = 1000000;
+double step;
+
+int main() {
+    int i;
+    double x, pi = 0.0, sum = 0.0;
+
+    step = 1.0 / (double)num_steps;
+    double start_time = omp_get_wtime();
+
+    #pragma omp parallel
+    {
+        double local_sum = 0.0;
+
+        #pragma omp for
+        for (i = 0; i < num_steps; i++) {
+            x = (i + 0.5) * step;
+            local_sum = 4.0 / (1.0 + x * x);
+
+            #pragma omp critical
+            {
+                sum += local_sum;
+            }
+        }
+    }
+
+    pi = step * sum;
+    double end_time = omp_get_wtime();
+
+    printf("Computed value of Pi = %.15f\n", pi);
+    printf("Time taken = %f seconds\n", end_time - start_time);
+
+    return 0;
+}
+
+4a
+#include <stdio.h>
+#include <stdlib.h>
+#include <time.h>
+#include <omp.h>
+
+int main() {
+    int n, i;
+
+    printf("Number of terms : ");
+    scanf("%d", &n);
+
+    int *a = (int *)malloc(n * sizeof(int));
+    a[0] = 0;
+    a[1] = 1;
+
+    time_t st, et;
+    st = clock();
+
+    omp_set_num_threads(2);
+
+    #pragma omp parallel
+    {
+        #pragma omp single
+        {
+            printf("id of thread involved in the computation of fibonacci numbers = %d\n", omp_get_thread_num());
+            for (i = 2; i < n; i++) {
+                a[i] = a[i - 2] + a[i - 1];
+            }
+        }
+
+        #pragma omp single
+        {
+            printf("id of thread involved in the displaying of fibonacci numbers = %d\n", omp_get_thread_num());
+            printf("Fibonacci numbers : ");
+            for (i = 0; i < n - 1; i++) {
+                printf("%d ", a[i]);
+            }
+            printf("\n");
+        }
+    }
+
+    et = clock();
+
+    printf("Time Taken : %lfms\n", ((double)(et - st) * 1000 / CLOCKS_PER_SEC));
+
+    free(a);
+    return 0;
+}
+4b
+#include <stdio.h>
+#include <omp.h>
+
+#define MAX 20
+
+int fib[MAX];
+int generated = 0;
+
+int main() {
+    int n = MAX;
+
+    fib[0] = 0;
+    fib[1] = 1;
+    generated = 2;
+
+    omp_set_num_threads(2);
+
+    double start = omp_get_wtime();
+
+    #pragma omp parallel shared(fib, generated, n)
+    {
+        #pragma omp sections
+        {
+            #pragma omp section
+            {
+                for (int i = 2; i < n; i++) {
+                    #pragma omp critical
+                    {
+                        fib[i] = fib[i - 1] + fib[i - 2];
+                        generated++;
+                    }
+                    #pragma omp flush(generated)
+                }
+            }
+
+            #pragma omp section
+            {
+                int lastPrinted = 0;
+                while (lastPrinted < n) {
+                    #pragma omp flush(generated)
+                    if (lastPrinted < generated) {
+                        #pragma omp critical
+                        {
+                            printf("Fibonacci[%d] = %d\n", lastPrinted, fib[lastPrinted]);
+                            lastPrinted++;
+                        }
+                    }
+                }
+            }
+        }
+    }
+
+    double end = omp_get_wtime();
+    printf("Time taken: %f seconds\n", end - start);
+
+    return 0;
+}
+4c
+#include <stdio.h>
+#include <stdlib.h>
+#include <time.h>
+#include <omp.h>
+
+int main() {
+    int n, i;
+
+    printf("Number of terms : ");
+    scanf("%d", &n);
+
+    int *a = (int *)malloc(n * sizeof(int));
+    a[0] = 0;
+    a[1] = 1;
+
+    time_t st, et;
+    st = clock();
+
+    omp_set_num_threads(2);
+
+    #pragma omp parallel
+    {
+        #pragma omp critical
+        {
+            if (omp_get_thread_num() == 0) {
+                printf("id of thread involved in the computation of fibonacci numbers = %d\n", omp_get_thread_num());
+                for (i = 2; i < n; i++) {
+                    a[i] = a[i - 2] + a[i - 1];
+                }
+            } else if (omp_get_thread_num() == 1) {
+                printf("id of thread involved in the displaying of fibonacci numbers = %d\n", omp_get_thread_num());
+                printf("Fibonacci numbers : ");
+                for (i = 0; i < n; i++) {
+                    printf("%d ", a[i]);
+                }
+                printf("\n");
+            }
+        }
+    }
+
+    et = clock();
+
+    printf("Time Taken : %lfms\n", ((double)(et - st) * 1000 / CLOCKS_PER_SEC));
+
+    free(a);
+    return 0;
+}
+
+5
+#include <stdio.h>
+#include <stdlib.h>
+#include <omp.h>
+
+int main() {
+    int n, i;
+    scanf("%d", &n);
+
+    float cgpa[n], redtime, critime;
+    double st, et;
+
+    for (i = 0; i < n; i++) {
+        cgpa[i] = (rand() % 1000) / 100.0f;
+        printf("%.2f ", cgpa[i]);
+    }
+    printf("\n");
+
+    float Max = cgpa[0];
+    st = omp_get_wtime();
+    #pragma omp parallel for
+    for (i = 1; i < n; i++) {
+        #pragma omp critical
+        {
+            if (cgpa[i] > Max) {
+                Max = cgpa[i];
+            }
+        }
+    }
+    et = omp_get_wtime();
+    critime = et - st;
+
+    Max = cgpa[0];
+    st = omp_get_wtime();
+    #pragma omp parallel for reduction(max : Max)
+    for (i = 1; i < n; i++) {
+        if (cgpa[i] > Max) {
+            Max = cgpa[i];
+        }
+    }
+    et = omp_get_wtime();
+    redtime = et - st;
+
+    printf("Maximum cgpa = %.2f\nReduction time: %lf sec\nCritical time: %lf sec\nTime difference: %lf sec\n", 
+           Max, redtime, critime, redtime - critime);
+
+    return 0;
+}
+6
+#include <stdio.h>
+#include <stdlib.h>
+#include <omp.h>
+
+int main() {
+    int n, i, j, k;
+
+    printf("Enter the size of square matrix: ");
+    scanf("%d", &n);
+
+    int a[n][n], b[n][n], c[n][n];
+
+    for (i = 0; i < n; i++) {
+        for (j = 0; j < n; j++) {
+            a[i][j] = rand() % 10;
+            b[i][j] = rand() % 10;
+            c[i][j] = 0;
+        }
+    }
+
+    double st = omp_get_wtime();
+    for (i = 0; i < n; i++) {
+        for (j = 0; j < n; j++) {
+            c[i][j] = 0;
+            for (k = 0; k < n; k++) {
+                c[i][j] += a[i][k] * b[k][j];
+            }
+        }
+    }
+    double et = omp_get_wtime();
+    printf("Sequential time required for computation is: %lf \n", et - st);
+
+    st = omp_get_wtime();
+    #pragma omp parallel for collapse(2) private(i, j, k) schedule(guided, 3)
+    for (i = 0; i < n; i++) {
+        for (j = 0; j < n; j++) {
+            c[i][j] = 0;
+            for (k = 0; k < n; k++) {
+                c[i][j] += a[i][k] * b[k][j];
+            }
+        }
+    }
+    et = omp_get_wtime();
+    printf("Parallel time required for computation is: %lf \n", et - st);
+
+    return 0;
+}
   </body>
 </html>

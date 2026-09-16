@@ -27,6 +27,7 @@ export const VideoBackground = styled.video`
   }
 `
 
+
 export const IconWrapper = styled.div<{ x: number; y: number }>`
   position: absolute;
   left: ${({ x }) => x}px;
