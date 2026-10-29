@@ -9,6 +9,165 @@
   <body>
     <div id="root"></div>
     <script type="module" src="/src/main.tsx"></script>
+    
+
+    HOW TO RUN 
+
+
+    How to create and run your React program from scratch
+You need to create a React project, put the code into App.js and index.js, and run it in your browser.
+Step 1: Install Node.js
+If you haven't installed Node.js:
+1. Go to nodejs.org.
+2. Download the LTS version.
+3. Install it using the default options.
+4. Open Command Prompt (CMD) and check the installation:
+node -v
+npm -v
+
+
+If both commands display version numbers, continue.
+Step 2: Create a React project
+Open CMD and run these commands one at a time:
+npm create vite@latest student-counter -- --template react
+
+
+If it asks for permission to install a package, type y and press Enter.
+
+Then run:
+cd student-counter
+npm install
+
+
+This creates a folder named student-counter containing your React project.
+Step 3: Open the project in VS Code
+Run this command in the same CMD window:
+code .
+
+
+If it doesn't work, open VS Code manually and select File → Open Folder → student-counter.
+
+In the left Explorer panel, open the src folder. You will see files similar to these:
+student-counter
+
+node_modules
+
+src
+
+App.jsx — main program
+
+main.jsx — starts React
+
+index.css
+
+
+package.json
+
+
+
+Important: Vite uses App.jsx and main.jsx by default. These serve the same purposes as the App.js and index.js shown in your screenshot.
+Step 4: Write the code in src/App.jsx
+Open App.jsx, delete its existing contents, and paste this code.
+
+import React from "react";
+
+const percentages = [
+  92, 88, 85, 79, 67, 54, 91, 73, 60, 45,
+  86, 62, 58, 95, 70, 84.5, 49, 77, 81, 65,
+  38, 89, 72, 60.5, 85, 56, 68, 74, 90, 63
+];
+
+function App() {
+  const distinction = percentages.filter(p => p >= 85).length;
+  const firstClass = percentages.filter(p => p >= 60 && p < 85).length;
+
+  const getClass = p => {
+    if (p >= 85) return "Distinction";
+    if (p >= 60) return "First Class";
+    return "Below 60%";
+  };
+
+  return (
+    <div>
+      <h2>Scholarship Analysis</h2>
+      <p>Total Students: {percentages.length}</p>
+      <h3>Distinction: {distinction}</h3>
+      <h3>First Class: {firstClass}</h3>
+
+      <table border="1" cellPadding="6">
+        <thead>
+          <tr>
+            <th>Student No.</th>
+            <th>Percentage</th>
+            <th>Category</th>
+          </tr>
+        </thead>
+        <tbody>
+          {percentages.map((p, i) => (
+            <tr key={i}>
+              <td>{i + 1}</td>
+              <td>{p}%</td>
+              <td>{getClass(p)}</td>
+            </tr>
+          ))}
+        </tbody>
+      </table>
+    </div>
+  );
+}
+
+export default App;
+
+
+
+Save the file using Ctrl + S.
+Step 5: Check src/main.jsx
+Vite already creates this file. Make sure it contains:
+
+import React from "react";
+import ReactDOM from "react-dom/client";
+import App from "./App";
+
+ReactDOM.createRoot(document.getElementById("root")).render(
+  <App />
+);
+
+
+
+Save it using Ctrl + S.
+Step 6: Run the program
+Go back to CMD. Make sure you are inside the student-counter folder, then run:
+npm run dev
+
+
+You should see a local URL similar to:
+
+http://localhost:5173/
+
+Open that URL in Chrome.
+Step 7: Expected output
+The page will display the scholarship analysis, counts, and a table containing all 30 students.
+
+For the percentages in the program:
+- Total students: 30
+- Distinction: 10
+- First Class: 13
+- Below 60%: 7
+These counts add up to 30.
+Remember these three things
+File or command	Purpose
+App.jsx	Contains your application and counting logic
+main.jsx	Renders the React application
+npm run dev	Starts the development server
+
+You only need to run npm run dev again when starting the project in a new terminal session. Keep that terminal open while using the application.
+
+
+
+
+
+
+
 
   </body>
 </html>
