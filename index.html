@@ -163,11 +163,1051 @@ npm run dev	Starts the development server
 You only need to run npm run dev again when starting the project in a new terminal session. Keep that terminal open while using the application.
 
 
+==================
+
+<!-- Program 2: React Text Area Form
+Follow the same steps as Program 1. You will create a React project, write the code in App.jsx, and run it in the browser.
+Step 1: Create the React project
+Open CMD and run:
+npm create vite@latest textarea-app -- --template react
+cd textarea-app
+npm install
+
+
+Step 2: Open in VS Code
+code .
+
+
+Open src/App.jsx, delete the existing code, and paste the following.
+Step 3: Write the code in src/App.jsx
+
+import React, { useState } from "react";
+
+function App() {
+  const [text, setText] = useState("");
+
+  const handleChange = (event) => {
+    setText(event.target.value);
+  };
+
+  return (
+    <div style={{ padding: "20px" }}>
+      <h2>React Form with Text Area</h2>
+
+      <form>
+        <label>Enter your text:</label>
+        <br />
+
+        <textarea
+          rows="6"
+          cols="50"
+          value={text}
+          onChange={handleChange}
+          placeholder="Type something here..."
+        />
+      </form>
+
+      <h3>Updated value:</h3>
+      <p>{text}</p>
+    </div>
+  );
+}
+
+export default App;
 
 
 
+Save using Ctrl + S.
+Step 4: Check src/main.jsx
+Replace its contents with:
+
+import React from "react";
+import ReactDOM from "react-dom/client";
+import App from "./App";
+
+ReactDOM.createRoot(document.getElementById("root")).render(
+  <App />
+);
+
+ -->
+
+Save the file.
+Step 5: Run the program
+In the VS Code terminal, run:
+npm run dev
+
+
+Open the URL displayed in the terminal, usually http://localhost:5173/.
+Step 6: Expected output
+React Form with Text Area
+Enter your text:
+
+
+Updated value:
+
+Easy way to remember the code
+- useState("") — stores the text.
+- handleChange — updates the text when you type.
+- value={text} — connects the textarea to the state.
+- onChange={handleChange} — detects typing.
+- {text} — displays the updated text on the screen.
+Result: The application accepts text in a textarea and immediately displays the updated value below it using React state.
+
+
+====================
+
+
+<!-- Program 3: Input Validation using React useEffect
+Follow the same process as Programs 1 and 2. This program checks a username every time the user types and displays validation feedback.
+Step 1: Create the React project
+Open CMD and run:
+npm create vite@latest validation-app -- --template react
+cd validation-app
+npm install
+
+
+Step 2: Open the project in VS Code
+code .
+
+
+Open src/App.jsx, delete the existing code, and paste the following.
+Step 3: Write the code in src/App.jsx
+
+import React, { useState, useEffect } from "react";
+
+function App() {
+  const [username, setUsername] = useState("");
+  const [message, setMessage] = useState("Please enter a username");
+  const [isValid, setIsValid] = useState(false);
+
+  useEffect(() => {
+    if (username === "") {
+      setMessage("Please enter a username");
+      setIsValid(false);
+    } else if (username.length < 5) {
+      setMessage("Username must be at least 5 characters long");
+      setIsValid(false);
+    } else if (!/^[A-Za-z0-9_]+$/.test(username)) {
+      setMessage("Only letters, digits and underscore allowed");
+      setIsValid(false);
+    } else {
+      setMessage("Valid username");
+      setIsValid(true);
+    }
+  }, [username]);
+
+  return (
+    <div style={{ padding: "20px", fontFamily: "Arial" }}>
+      <h2>Input Validation using useEffect</h2>
+
+      <input
+        type="text"
+        value={username}
+        onChange={(e) => setUsername(e.target.value)}
+        placeholder="Enter username"
+        style={{ padding: "8px", width: "250px" }}
+      />
+
+      <p style={{ color: isValid ? "green" : "red" }}>
+        {message}
+      </p>
+    </div>
+  );
+}
+
+export default App;
 
 
 
-  </body>
+Save the file using Ctrl + S.
+Step 4: Check src/main.jsx
+Replace its contents with:
+
+import React from "react";
+import ReactDOM from "react-dom/client";
+import App from "./App";
+
+ReactDOM.createRoot(document.getElementById("root")).render(
+  <App />
+);
+
+
+
+Save the file.
+Step 5: Run the program
+Open the VS Code terminal and run:
+npm run dev
+
+
+Open the URL shown in the terminal, usually http://localhost:5173/.
+Step 6: Expected output
+Input Validation using useEffect
+
+Please enter a username
+
+Easy way to remember
+- useState — stores username, message and validity.
+- useEffect — validates whenever username changes.
+- if-else — checks empty input, length and characters.
+- setMessage() — displays the validation message.
+- setIsValid() — controls green or red text.
+- [username] — runs the effect whenever the username changes.
+Result: The React application validates the username immediately as the user types. A valid username must contain at least five characters, using only letters, digits and underscores.
+ -->
+
+ ==================
+
+<!-- 
+ Program 4: Dependency Injection using Spring
+This is a Java + Spring program, unlike Programs 1–3, which used React. You will create a Maven project in VS Code or IntelliJ, add the Spring dependency, create the Java classes, and run MainApp.java.
+Step 1: Create a Maven project
+The easiest option is to use Spring Initializr.
+
+Select:
+- Project: Maven
+- Language: Java
+- Spring Boot: choose a stable version compatible with your installed Java
+- Group: com.example
+- Artifact: dependency-injection
+- Packaging: Jar
+- Java: your installed Java version
+Add the Spring Context dependency if available, or create the Maven project and use the pom.xml below.
+
+Generate and extract the project ZIP, then open the extracted folder in VS Code.
+Step 2: Create the files
+Inside your project, create this structure:
+dependency-injection
+
+pom.xml
+
+src/main/java/com/mittd/
+
+MessageService.java
+
+EmailService.java
+
+SmsService.java
+
+NotificationClient.java
+
+AppConfig.java
+
+MainApp.java
+
+
+
+Use the same package name, com.mittd, in every Java file.
+Step 3: Write pom.xml
+Replace its contents with:
+
+<project xmlns="http://maven.apache.org/POM/4.0.0"
+         xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+         xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 https://maven.apache.org/xsd/maven-4.0.0.xsd">
+    <modelVersion>4.0.0</modelVersion>
+
+    <groupId>com.mittd</groupId>
+    <artifactId>dependency-injection</artifactId>
+    <version>1.0</version>
+
+    <properties>
+        <maven.compiler.source>17</maven.compiler.source>
+        <maven.compiler.target>17</maven.compiler.target>
+    </properties>
+
+    <dependencies>
+        <dependency>
+            <groupId>org.springframework</groupId>
+            <artifactId>spring-context</artifactId>
+            <version>6.1.14</version>
+        </dependency>
+    </dependencies>
+</project>
+
+
+
+Step 4: Create MessageService.java
+This is the interface that both email and SMS services implement.
+
+package com.mittd;
+
+public interface MessageService {
+    void sendMessage(String to, String message);
+}
+
+
+
+Step 5: Create EmailService.java
+
+package com.mittd;
+
+import org.springframework.stereotype.Component;
+
+@Component("emailService")
+public class EmailService implements MessageService {
+    public void sendMessage(String to, String message) {
+        System.out.println("Email sent to " + to + ": " + message);
+    }
+}
+
+
+
+Step 6: Create SmsService.java
+
+package com.mittd;
+
+import org.springframework.stereotype.Component;
+
+@Component("smsService")
+public class SmsService implements MessageService {
+    public void sendMessage(String to, String message) {
+        System.out.println("SMS sent to " + to + ": " + message);
+    }
+}
+
+
+
+Step 7: Create NotificationClient.java
+This class receives its dependency through constructor injection.
+
+package com.mittd;
+
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Qualifier;
+import org.springframework.stereotype.Component;
+
+@Component
+public class NotificationClient {
+    private final MessageService messageService;
+
+    @Autowired
+    public NotificationClient(
+        @Qualifier("emailService") MessageService messageService) {
+        this.messageService = messageService;
+    }
+
+    public void notifyUser(String to, String message) {
+        messageService.sendMessage(to, message);
+    }
+}
+
+
+
+Step 8: Create AppConfig.java
+This tells Spring where to find the components.
+
+package com.mittd;
+
+import org.springframework.context.annotation.ComponentScan;
+import org.springframework.context.annotation.Configuration;
+
+@Configuration
+@ComponentScan("com.mittd")
+public class AppConfig {
+}
+
+
+
+Step 9: Create MainApp.java
+This is the main program.
+
+package com.mittd;
+
+import org.springframework.context.annotation.AnnotationConfigApplicationContext;
+
+public class MainApp {
+    public static void main(String[] args) {
+        AnnotationConfigApplicationContext context =
+            new AnnotationConfigApplicationContext(AppConfig.class);
+
+        NotificationClient client =
+            context.getBean(NotificationClient.class);
+
+        client.notifyUser("student@example.com",
+                          "Dependency Injection works!");
+
+        context.close();
+    }
+}
+
+
+
+Step 10: Run the program
+First, ensure Java and Maven are installed. Open the VS Code terminal in the project root, where pom.xml is located.
+
+Check Java:
+java -version
+
+
+Then run the program using Maven:
+mvn compile
+
+
+If compilation succeeds, run:
+mvn org.codehaus.mojo:exec-maven-plugin:3.5.0:java -Dexec.mainClass="com.mittd.MainApp"
+
+
+If mvn is not recognized, install Maven or use the Maven wrapper if your project has one.
+Expected output
+Email sent to student@example.com: Dependency Injection works!
+
+
+Step 11: Understand dependency injection
+- MessageService — common interface.
+- EmailService and SmsService — implementations of the interface.
+- @Component — registers a class as a Spring-managed bean.
+- @Autowired — enables constructor-based dependency injection.
+- @Qualifier("emailService") — selects the email implementation.
+- @ComponentScan — discovers components.
+- MainApp — starts Spring and retrieves the client.
+Exam memory tip: Interface → Implementations → Inject dependency → Configure Spring → Run main.
+
+The screenshot's mock-testing example can be implemented separately after the main application runs. -->
+ 
+
+
+
+======================
+
+<!-- Program 4: Dependency Injection using Spring
+This is a Java + Spring program, unlike Programs 1–3, which used React. You will create a Maven project in VS Code or IntelliJ, add the Spring dependency, create the Java classes, and run MainApp.java.
+Step 1: Create a Maven project
+The easiest option is to use Spring Initializr.
+
+Select:
+- Project: Maven
+- Language: Java
+- Spring Boot: choose a stable version compatible with your installed Java
+- Group: com.example
+- Artifact: dependency-injection
+- Packaging: Jar
+- Java: your installed Java version
+Add the Spring Context dependency if available, or create the Maven project and use the pom.xml below.
+
+Generate and extract the project ZIP, then open the extracted folder in VS Code.
+Step 2: Create the files
+Inside your project, create this structure:
+dependency-injection
+
+pom.xml
+
+src/main/java/com/mittd/
+
+MessageService.java
+
+EmailService.java
+
+SmsService.java
+
+NotificationClient.java
+
+AppConfig.java
+
+MainApp.java
+
+
+
+Use the same package name, com.mittd, in every Java file.
+Step 3: Write pom.xml
+Replace its contents with:
+
+<project xmlns="http://maven.apache.org/POM/4.0.0"
+         xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+         xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 https://maven.apache.org/xsd/maven-4.0.0.xsd">
+    <modelVersion>4.0.0</modelVersion>
+
+    <groupId>com.mittd</groupId>
+    <artifactId>dependency-injection</artifactId>
+    <version>1.0</version>
+
+    <properties>
+        <maven.compiler.source>17</maven.compiler.source>
+        <maven.compiler.target>17</maven.compiler.target>
+    </properties>
+
+    <dependencies>
+        <dependency>
+            <groupId>org.springframework</groupId>
+            <artifactId>spring-context</artifactId>
+            <version>6.1.14</version>
+        </dependency>
+    </dependencies>
+</project>
+
+
+
+Step 4: Create MessageService.java
+This is the interface that both email and SMS services implement.
+
+package com.mittd;
+
+public interface MessageService {
+    void sendMessage(String to, String message);
+}
+
+
+
+Step 5: Create EmailService.java
+
+package com.mittd;
+
+import org.springframework.stereotype.Component;
+
+@Component("emailService")
+public class EmailService implements MessageService {
+    public void sendMessage(String to, String message) {
+        System.out.println("Email sent to " + to + ": " + message);
+    }
+}
+
+
+
+Step 6: Create SmsService.java
+
+package com.mittd;
+
+import org.springframework.stereotype.Component;
+
+@Component("smsService")
+public class SmsService implements MessageService {
+    public void sendMessage(String to, String message) {
+        System.out.println("SMS sent to " + to + ": " + message);
+    }
+}
+
+
+
+Step 7: Create NotificationClient.java
+This class receives its dependency through constructor injection.
+
+package com.mittd;
+
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Qualifier;
+import org.springframework.stereotype.Component;
+
+@Component
+public class NotificationClient {
+    private final MessageService messageService;
+
+    @Autowired
+    public NotificationClient(
+        @Qualifier("emailService") MessageService messageService) {
+        this.messageService = messageService;
+    }
+
+    public void notifyUser(String to, String message) {
+        messageService.sendMessage(to, message);
+    }
+}
+
+
+
+Step 8: Create AppConfig.java
+This tells Spring where to find the components.
+
+package com.mittd;
+
+import org.springframework.context.annotation.ComponentScan;
+import org.springframework.context.annotation.Configuration;
+
+@Configuration
+@ComponentScan("com.mittd")
+public class AppConfig {
+}
+
+
+
+Step 9: Create MainApp.java
+This is the main program.
+
+package com.mittd;
+
+import org.springframework.context.annotation.AnnotationConfigApplicationContext;
+
+public class MainApp {
+    public static void main(String[] args) {
+        AnnotationConfigApplicationContext context =
+            new AnnotationConfigApplicationContext(AppConfig.class);
+
+        NotificationClient client =
+            context.getBean(NotificationClient.class);
+
+        client.notifyUser("student@example.com",
+                          "Dependency Injection works!");
+
+        context.close();
+    }
+}
+
+
+
+Step 10: Run the program
+First, ensure Java and Maven are installed. Open the VS Code terminal in the project root, where pom.xml is located.
+
+Check Java:
+java -version
+
+
+Then run the program using Maven:
+mvn compile
+
+
+If compilation succeeds, run:
+mvn org.codehaus.mojo:exec-maven-plugin:3.5.0:java -Dexec.mainClass="com.mittd.MainApp"
+
+
+If mvn is not recognized, install Maven or use the Maven wrapper if your project has one.
+Expected output
+Email sent to student@example.com: Dependency Injection works!
+
+
+Step 11: Understand dependency injection
+- MessageService — common interface.
+- EmailService and SmsService — implementations of the interface.
+- @Component — registers a class as a Spring-managed bean.
+- @Autowired — enables constructor-based dependency injection.
+- @Qualifier("emailService") — selects the email implementation.
+- @ComponentScan — discovers components.
+- MainApp — starts Spring and retrieves the client.
+Exam memory tip: Interface → Implementations → Inject dependency → Configure Spring → Run main.
+
+The screenshot's mock-testing example can be implemented separately after the main application runs. -->
+
+===================
+
+<!-- Program 5: Bean Configuration and Management using Spring
+This is a Java Spring program that demonstrates bean lifecycle, singleton and prototype scopes, and dependency injection.
+
+Follow the same process as Program 4. Create a Maven project, add the Spring dependency, and create the Java files inside the com.mittd.beans package.
+Step 1: Create the project
+Use Spring Initializr or create a Maven project with the spring-context dependency.
+
+Use this folder structure:
+src/main/java/com/mittd/beans/
+    Engine.java
+    Car.java
+    Ticket.java
+    BeanConfig.java
+    MainApp.java
+
+
+Use the same pom.xml from Program 4.
+Step 2: Create Engine.java
+package com.mittd.beans;
+
+public class Engine {
+    private final String type;
+
+    public Engine(String type) {
+        this.type = type;
+        System.out.println("Engine bean created: " + type);
+    }
+
+    public String getType() {
+        return type;
+    }
+}
+
+
+Step 3: Create Car.java
+package com.mittd.beans;
+
+public class Car {
+    private final Engine engine;
+    private String model;
+
+    public Car(Engine engine) {
+        this.engine = engine;
+        System.out.println("Car constructor: Engine injected");
+    }
+
+    public void setModel(String model) {
+        this.model = model;
+    }
+
+    public void init() {
+        System.out.println("Car initialized, model = " + model);
+    }
+
+    public void drive() {
+        System.out.println(model + " is running with "
+                + engine.getType() + " engine");
+    }
+
+    public void cleanup() {
+        System.out.println("Car cleanup: bean is being destroyed");
+    }
+}
+
+
+Step 4: Create Ticket.java
+package com.mittd.beans;
+
+public class Ticket {
+    private static int counter = 0;
+    private final int id;
+
+    public Ticket() {
+        id = ++counter;
+        System.out.println("Ticket bean created, id = " + id);
+    }
+
+    public int getId() {
+        return id;
+    }
+}
+
+
+Step 5: Create BeanConfig.java
+This is the most important file. It defines the beans and their scopes.
+package com.mittd.beans;
+
+import org.springframework.context.annotation.Bean;
+import org.springframework.context.annotation.Configuration;
+import org.springframework.context.annotation.Scope;
+
+@Configuration
+public class BeanConfig {
+
+    @Bean
+    public Engine engine() {
+        return new Engine("Petrol");
+    }
+
+    @Bean(initMethod = "init", destroyMethod = "cleanup")
+    @Scope("singleton")
+    public Car car() {
+        Car car = new Car(engine());
+        car.setModel("Honda City");
+        return car;
+    }
+
+    @Bean
+    @Scope("prototype")
+    public Ticket ticket() {
+        return new Ticket();
+    }
+}
+
+
+Step 6: Create MainApp.java
+package com.mittd.beans;
+
+import org.springframework.context.annotation.AnnotationConfigApplicationContext;
+
+public class MainApp {
+    public static void main(String[] args) {
+
+        AnnotationConfigApplicationContext context =
+                new AnnotationConfigApplicationContext(BeanConfig.class);
+
+        Car c1 = context.getBean(Car.class);
+        Car c2 = context.getBean(Car.class);
+
+        c1.drive();
+        System.out.println("Singleton: " + (c1 == c2));
+
+        Ticket t1 = context.getBean(Ticket.class);
+        Ticket t2 = context.getBean(Ticket.class);
+
+        System.out.println("Prototype: " + (t1 == t2));
+
+        context.close();
+    }
+}
+
+
+Step 7: Run the program
+Open the terminal in the project root folder, where pom.xml is located.
+mvn compile
+
+
+Then run:
+mvn org.codehaus.mojo:exec-maven-plugin:3.5.0:java -Dexec.mainClass="com.mittd.beans.MainApp"
+
+
+Step 8: Expected output
+Engine bean created: Petrol
+Car constructor: Engine injected
+Car initialized, model = Honda City
+Honda City is running with Petrol engine
+Singleton: true
+Ticket bean created, id = 1
+Ticket bean created, id = 2
+Prototype: false
+Car cleanup: bean is being destroyed
+
+
+Easy way to remember for exams
+Concept	Code to remember
+Bean creation	@Bean
+Configuration	@Configuration
+Dependency injection	new Car(engine())
+Singleton scope	@Scope("singleton")
+Prototype scope	@Scope("prototype")
+Initialization	initMethod = "init"
+Destruction	destroyMethod = "cleanup"
+Close container	context.close()
+
+Result: The program demonstrates constructor dependency injection, singleton beans (one shared object), prototype beans (a new object per request), and the bean initialization and destruction lifecycle. -->
+
+=============================
+
+  <!-- Program 6: Book Management System using Spring Boot and Thymeleaf
+This program creates a web application to view, add, and delete books. Unlike Program 4 and 5, this uses Spring Boot, a controller, and HTML templates.
+Step 1: Create the project
+Open Spring Initializr and select:
+- Project: Maven
+- Language: Java
+- Packaging: Jar
+- Dependencies:
+  - Spring Web
+  - Thymeleaf
+Generate the ZIP, extract it, and open the folder in VS Code.
+Step 2: Create the folder structure
+Inside src/main, create these files and folders:
+src/main
+
+java/com/nmit/bookapp
+
+BookApplication.java
+
+Main class
+
+WebConfig.java
+
+Configuration
+
+model/Book.java
+controller/BookController.java
+
+resources/templates
+
+books.html
+add-book.html
+
+
+
+The package names in the code must match the folder structure.
+Step 3: Create Book.java
+Location: model/Book.java
+package com.nmit.bookapp.model;
+
+public class Book {
+    private int id;
+    private String title;
+    private String author;
+
+    public Book() {}
+
+    public Book(int id, String title, String author) {
+        this.id = id;
+        this.title = title;
+        this.author = author;
+    }
+
+    public int getId() { return id; }
+    public void setId(int id) { this.id = id; }
+
+    public String getTitle() { return title; }
+    public void setTitle(String title) { this.title = title; }
+
+    public String getAuthor() { return author; }
+    public void setAuthor(String author) { this.author = author; }
+}
+
+
+Step 4: Create BookController.java
+Location: controller/BookController.java
+package com.nmit.bookapp.controller;
+
+import com.nmit.bookapp.model.Book;
+import org.springframework.stereotype.Controller;
+import org.springframework.ui.Model;
+import org.springframework.web.bind.annotation.*;
+import java.util.ArrayList;
+import java.util.List;
+
+@Controller
+@RequestMapping("/books")
+public class BookController {
+
+    private List<Book> books = new ArrayList<>();
+    private int nextId = 1;
+
+    public BookController() {
+        books.add(new Book(nextId++, "Clean Code", "Robert C. Martin"));
+        books.add(new Book(nextId++, "Effective Java", "Joshua Bloch"));
+    }
+
+    @GetMapping
+    public String listBooks(Model model) {
+        model.addAttribute("books", books);
+        return "books";
+    }
+
+    @GetMapping("/add")
+    public String showForm(Model model) {
+        model.addAttribute("book", new Book());
+        return "add-book";
+    }
+
+    @PostMapping("/add")
+    public String addBook(@ModelAttribute Book book) {
+        book.setId(nextId++);
+        books.add(book);
+        return "redirect:/books";
+    }
+
+    @GetMapping("/delete/{id}")
+    public String deleteBook(@PathVariable int id) {
+        books.removeIf(book -> book.getId() == id);
+        return "redirect:/books";
+    }
+}
+
+
+Step 5: Create books.html
+Location: src/main/resources/templates/books.html
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <title>Book List</title>
+</head>
+<body>
+    <h2>Book List</h2>
+
+    <a th:href="@{/books/add}">Add New Book</a>
+
+    <table border="1" cellpadding="6">
+        <tr>
+            <th>ID</th>
+            <th>Title</th>
+            <th>Author</th>
+            <th>Action</th>
+        </tr>
+
+        <tr th:each="book : ${books}">
+            <td th:text="${book.id}"></td>
+            <td th:text="${book.title}"></td>
+            <td th:text="${book.author}"></td>
+            <td>
+                <a th:href="@{/books/delete/{id}(id=${book.id})}">
+                    Delete
+                </a>
+            </td>
+        </tr>
+    </table>
+</body>
+</html>
+
+
+Step 6: Create add-book.html
+Location: src/main/resources/templates/add-book.html
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <title>Add Book</title>
+</head>
+<body>
+    <h2>Add a New Book</h2>
+
+    <form th:action="@{/books/add}" th:object="${book}" method="post">
+        Title: <input type="text" th:field="*{title}" required>
+        <br><br>
+
+        Author: <input type="text" th:field="*{author}" required>
+        <br><br>
+
+        <button type="submit">Save Book</button>
+    </form>
+
+    <br>
+    <a th:href="@{/books}">Back to Book List</a>
+</body>
+</html>
+
+
+Step 7: Create WebConfig.java
+Location: src/main/java/com/nmit/bookapp/WebConfig.java
+package com.nmit.bookapp;
+
+import org.springframework.context.annotation.Configuration;
+import org.springframework.web.servlet.config.annotation.ViewControllerRegistry;
+import org.springframework.web.servlet.config.annotation.WebMvcConfigurer;
+
+@Configuration
+public class WebConfig implements WebMvcConfigurer {
+
+    @Override
+    public void addViewControllers(ViewControllerRegistry registry) {
+        registry.addRedirectViewController("/", "/books");
+    }
+}
+
+
+Step 8: Create BookApplication.java
+Location: src/main/java/com/nmit/bookapp/BookApplication.java
+package com.nmit.bookapp;
+
+import org.springframework.boot.SpringApplication;
+import org.springframework.boot.autoconfigure.SpringBootApplication;
+
+@SpringBootApplication
+public class BookApplication {
+    public static void main(String[] args) {
+        SpringApplication.run(BookApplication.class, args);
+    }
+}
+
+
+Step 9: Check pom.xml
+Make sure your dependencies include Spring Web and Thymeleaf. If you created the project using Spring Initializr with both dependencies selected, they should already be present.
+<dependencies>
+    <dependency>
+        <groupId>org.springframework.boot</groupId>
+        <artifactId>spring-boot-starter-web</artifactId>
+    </dependency>
+
+    <dependency>
+        <groupId>org.springframework.boot</groupId>
+        <artifactId>spring-boot-starter-thymeleaf</artifactId>
+    </dependency>
+</dependencies>
+
+
+Keep the Spring Boot parent and version generated by Spring Initializr.
+Step 10: Run the program
+Open the terminal in VS Code at the project root, where pom.xml is located.
+
+On Windows, run:
+mvn spring-boot:run
+
+
+Wait until Spring Boot starts successfully. Then open:
+
+http://localhost:8080/books
+Step 11: Expected output
+Book List
+Example of the application page
+
+Add New Book
+ID	Title	Author
+1	Clean Code	Robert C. Martin
+2	Effective Java	Joshua Bloch
+
+Each row also has a Delete link.
+
+You can add a book using Add New Book, submit its title and author, and return to the updated list. The Delete link removes a book.
+Easy way to remember for exams
+File	Purpose
+Book.java	Stores book details
+BookController.java	Handles list, add and delete requests
+books.html	Displays the book list
+add-book.html	Form to add a book
+WebConfig.java	Redirects / to /books
+BookApplication.java	Starts Spring Boot
+
+Result: The Spring Boot application manages books through a web interface using Spring MVC and Thymeleaf. The book list is stored in memory, so entries reset when the application restarts. -->
+</body>
 </html>
